@@ -14,6 +14,12 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    bookmarks = db.relationship("Poem", secondary="bookmarks", back_populates="bookmarked_by")
+    comments = db.relationship("Comment", back_populates="user")
+    annotations = db.relationship("Annotation", back_populates="user")
+    upvoted_notes = db.relationship("Annotation", secondary="upvotes", back_populates="upvotes")
+    downvoted_notes = db.relationship("Annotation", secondary="downvotes", back_populates="downvotes")
+
     @property
     def password(self):
         return self.hashed_password
@@ -29,5 +35,8 @@ class User(db.Model, UserMixin):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email
+            'email': self.email,
+            'bookmarks': [poem for poem in self.bookmarks],
+            'comments': [comment for comment in self.comments],
+            'annotations': [note for note in self.annotations]
         }
