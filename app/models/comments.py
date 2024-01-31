@@ -8,7 +8,7 @@ class Comment(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, nullable=False, primary_key=True)
-    body = db.Column(db.Text, nullable=False)
+    body = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     poem_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('poems.id')), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)

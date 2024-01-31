@@ -9,7 +9,7 @@ class Author(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False, unique=True)
-    biography = db.Column(db.Text(2000), nullable=False)
+    biography = db.Column(db.String(500), nullable=False)
     posted_by = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     poems = db.relationship("Poem", secondary="authored_poems", back_populates="author")
@@ -18,7 +18,7 @@ class Author(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            'biography': self.biography,
+            # 'biography': self.biography,
             'posted_by': self.posted_by,
             'poems': [poem for poem in self.poems]
         }
