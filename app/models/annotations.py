@@ -9,7 +9,7 @@ class Annotation(db.Model):
 
     id = db.Column(db.Integer, nullable=False, primary_key=True)
     line_number = db.Column(db.Integer, nullable=False)
-    note = db.Column(db.Text, nullable=False)
+    note = db.Column(db.String, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     poem_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('poems.id')), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now, nullable=False)

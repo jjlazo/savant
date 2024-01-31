@@ -10,7 +10,7 @@ class Poem(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('authors.id')), nullable=False)
-    body = db.Column(db.Text(2000), nullable=False)
+    body = db.Column(db.String, nullable=False)
     audio = db.Column(db.String)
     year_published = db.Column(db.Integer, nullable=False)
     posted_by = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 406368da713e
+Revision ID: 4a23100d4c56
 Revises: 
-Create Date: 2024-01-31 16:54:45.306157
+Create Date: 2024-01-31 16:58:39.369135
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '406368da713e'
+revision = '4a23100d4c56'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,6 +30,7 @@ def upgrade():
     op.create_table('authors',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('biography', sa.String(length=500), nullable=False),
     sa.Column('posted_by', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['posted_by'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id'),
@@ -39,7 +40,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=100), nullable=False),
     sa.Column('author_id', sa.Integer(), nullable=False),
-    sa.Column('body', sa.Text(length=2000), nullable=False),
+    sa.Column('body', sa.String(), nullable=False),
     sa.Column('audio', sa.String(), nullable=True),
     sa.Column('year_published', sa.Integer(), nullable=False),
     sa.Column('posted_by', sa.Integer(), nullable=False),
@@ -50,7 +51,7 @@ def upgrade():
     op.create_table('annotations',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('line_number', sa.Integer(), nullable=False),
-    sa.Column('note', sa.Text(), nullable=False),
+    sa.Column('note', sa.String(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('poem_id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
