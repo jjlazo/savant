@@ -23,3 +23,11 @@ def user(id):
     """
     user = User.query.get(id)
     return user.to_dict()
+
+# get user bookmarks
+@user_routes.route('/<int:id>/bookmarks')
+def user_bookmarks(id):
+    user = User.query.get(id)
+    if user:
+        return {"Bookmarks": [poem.to_dict() for poem in user.bookmarks]}
+    return {'errors': {'message': 'User Not Found'}}, 404

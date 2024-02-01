@@ -5,7 +5,7 @@ from flask_login import current_user, login_required
 
 comment_routes = Blueprint('comment', __name__)
 
-@comment_routes.route('/poems/<int:id>', methods=["PUT"])
+@comment_routes.route('/<int:id>', methods=["PUT"])
 def edit_comment(id):
     comment = Comment.query.get(id)
     form = CommentForm()
@@ -19,5 +19,18 @@ def edit_comment(id):
             return comment.to_dict(), 201
 
         return form.errors, 400
+
+    return { "message": "User unauthorized"}, 401
+
+
+@comment_routes.route("/<int:id>", methods=["DELETE"])
+def delete_comment(id):
+    comment = Comment.query.get(id)
+
+    if (comment.user_id == current_user.id):
+        db.session.delete(comment)
+        db.session.commit()
+
+        return {"message": "Success"}, 200
 
     return { "message": "User unauthorized"}, 401
