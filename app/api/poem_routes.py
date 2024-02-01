@@ -6,9 +6,12 @@ from flask_login import current_user, login_required
 poem_routes = Blueprint('poem', __name__)
 
 
-@poem_routes.route('/')
+@poem_routes.route('')
 def get_all_poems():
     poems = Poem.query.all()
+    # author_ids = [poem.author_id for poem in poems]
+    # authors = [Author.query.get(id) for id in author_ids]
+
     if poems:
         return {"Poems": [poem.to_dict() for poem in poems]}
     return {'errors': {'message': 'Poems Not Found'}}, 404
@@ -18,6 +21,7 @@ def get_all_poems():
 def get_poem(id):
     poem = Poem.query.get(id)
     if poem:
+        author = Author.query.get()
         return {"Poem": poem.to_dict()}
     return {'errors': {'message': 'Poem Not Found'}}, 404
 

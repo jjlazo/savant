@@ -28,9 +28,9 @@ class Poem(db.Model):
             'posted_by': self.posted_by,
             'year_published': self.year_published,
             'audio': self.audio,
-            'author': self.author.name,
-            'author_bio': self.author.biography,
-            'bookmarked_by': [user.id for user in self.bookmarked_by],
-            'annotations': [note for note in self.annotations],
-            'comments': [comment for comment in self.comments]
+            'author_id': self.author_id,
+            'author': self.author,
+            # 'bookmarked_by': [user.id for user in self.bookmarked_by],
+            # 'annotations': [note for note in self.annotations],
+            # 'comments': [comment for comment in self.comments]
         }
