@@ -30,14 +30,12 @@ function Feed({ data }) {
                         <div className="poem-bubble">
                             <div>
                                 <div className="poem-header">
-                                    <div>
-                                        <div onClick={(e) => navigateToAuthor(e, poem.author_id)} className="poem-author">
-                                            <b>{authorName(poem.author_id)}</b>
-                                        </div>
-                                    </div>
+                                    <div className="poem-title">{poem.title}</div>
+                                </div>
+                                <div onClick={(e) => navigateToAuthor(e, poem.author_id)} className="poem-author">
+                                    <b>{authorName(poem.author_id)}</b>
                                 </div>
                                 <div className="poem-content">
-                                    <div className="poem-title">{poem.title}</div>
                                     <div>{poem.body}</div>
                                 </div>
                             </div>
