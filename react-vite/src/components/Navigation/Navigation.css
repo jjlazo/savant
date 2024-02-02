@@ -18,3 +18,9 @@
   border-bottom: 1px solid black;
   padding: 0;
 }
+
+#search-bar{
+  width: 200px;
+  height: 25px;
+  padding: 3px;
+}

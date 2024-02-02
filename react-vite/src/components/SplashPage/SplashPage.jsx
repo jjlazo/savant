@@ -10,28 +10,30 @@ function SplashPage() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     let poems = useSelector(state => state.poems)
-    let authors = useSelector(state => state.authors)
 
     let poemArr = Object.values(poems)
-    let authorArr = Object.values(authors)
 
-    // useEffect(() => {
-    //     dispatch(poemActions.fetchPoems())
-    // }, [])
+    useEffect(() => {
+        dispatch(poemActions.fetchPoems())
+    }, [dispatch])
 
     useEffect(() => {
         dispatch(authorActions.fetchAuthors())
-    }, [])
+    }, [dispatch])
 
     return (
         <div className="splash-container">
-            <div className="container-content">
-            <div className="feed">
-                <Feed data={authorArr}/>
+            <p>Poem of the Day</p>
+            <div id="poem-of-the-day">
+
             </div>
+            <div className="container-content">
+                <div className="feed">
+                    <Feed data={poemArr} />
+                </div>
             </div>
         </div>
     );
-  }
+}
 
-  export default SplashPage;
+export default SplashPage;

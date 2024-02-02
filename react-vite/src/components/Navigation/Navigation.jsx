@@ -8,7 +8,9 @@ function Navigation() {
       <li className="list-items">
         <NavLink to="/"><img id='logo' src="https://i.ibb.co/pwtwzvr/savworm.png" /></NavLink>
       </li>
-
+      <li className="list-items">
+      <input placeholder="Search by Author or Poem. . . " id="search-bar"></input>
+      </li>
       <li className="list-items">
         <ProfileButton />
       </li>

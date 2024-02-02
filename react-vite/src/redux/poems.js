@@ -35,7 +35,7 @@ export const fetchPoems = () => async dispatch => {
     if(response.ok){
       const poems = await response.json()
       dispatch(readPoems(poems))
-      return poems
+      // return poems
     }else{
         const errors = await response.json()
         return errors

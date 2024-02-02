@@ -29,7 +29,7 @@ class Poem(db.Model):
             'year_published': self.year_published,
             'audio': self.audio,
             'author_id': self.author_id,
-            'author': self.author,
+            # 'author': self.author,
             # 'bookmarked_by': [user.id for user in self.bookmarked_by],
             # 'annotations': [note for note in self.annotations],
             # 'comments': [comment for comment in self.comments]

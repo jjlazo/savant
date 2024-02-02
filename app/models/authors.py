@@ -20,5 +20,5 @@ class Author(db.Model):
             'name': self.name,
             'biography': self.biography,
             'posted_by': self.posted_by,
-            'poems': [poem for poem in self.poems]
+            # 'poems': [poem for poem in self.poems]
         }
