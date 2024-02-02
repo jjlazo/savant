@@ -12,7 +12,7 @@ class Author(db.Model):
     biography = db.Column(db.String(500), nullable=False)
     posted_by = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
-    poems = db.relationship("Poem", secondary="authored_poems", back_populates="author")
+    poems = db.relationship("Poem", back_populates="author")
 
     def to_dict(self):
         return {
@@ -20,5 +20,5 @@ class Author(db.Model):
             'name': self.name,
             'biography': self.biography,
             'posted_by': self.posted_by,
-            # 'poems': [poem for poem in self.poems]
+            'poems': [poem.title for poem in self.poems]
         }

@@ -21,7 +21,7 @@ def get_poem(id):
     poem = Poem.query.get(id)
     if poem:
         # author = Author.query.get()
-        return {"Poem": poem.to_dict()}
+        return {"Poems": poem.to_dict()}
     return {'errors': {'message': 'Poem Not Found'}}, 404
 
 # create
