@@ -6,6 +6,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import './ProfileButton.css'
 import AuthorFormModal from "../ModalForms/CreateAuthorModal";
+import PoemFormModal from "../ModalForms/CreatePoemModal";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -56,6 +57,13 @@ function ProfileButton() {
                   itemText="Create an Author"
                   onItemClick={closeMenu}
                   modalComponent={<AuthorFormModal />}
+                />
+              </li>
+              <li id="create-poem">
+              <OpenModalMenuItem
+                  itemText="Create a Poem"
+                  onItemClick={closeMenu}
+                  modalComponent={<PoemFormModal />}
                 />
               </li>
               <li id="lg-butt-cont">
