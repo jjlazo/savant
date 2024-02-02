@@ -16,7 +16,7 @@ function AuthorFormModal() {
 
   const sendPost = async (e) => {
     e.preventDefault()
-    const response = await dispatch(authorActions.createAuthor({
+    const response = await dispatch(authorActions.fetchCreateAuthor({
       name,
       biography,
       'posted_by': curr_user.id

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useNavigate } from "react-router-dom";
-import * as poemActions from '../../redux/poems'
+import * as poemActions from '../../redux/poems.js'
 import "./CreateAuthor.css";
 
 function PoemFormModal() {
@@ -11,22 +11,25 @@ function PoemFormModal() {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
-  const [yearPublished, setYearPublished] = useState(0);
+  const [yearPublished, setYearPublished] = useState("");
   // const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
   const curr_user = useSelector(state => state.session.user)
   let authors = useSelector(state => state.authors)
 
   let authorArr = Object.values(authors)
+  const year = 0;
+  const years = Array.from(new Array(2024),(val, index) => index + year);
+  const revyears = years.reverse()
 
   const sendPoem = async (e) => {
     e.preventDefault()
-    const response = await dispatch(poemActions.createPoem({
+    const response = await dispatch(poemActions.fetchCreatePoem({
       title,
       body,
-      author,
+      "author_id": author,
       "posted_by": curr_user.id,
-      yearPublished
+      "year_published": yearPublished
     }))
     closeModal()
     navigate(`/poems/${response.id}`)
@@ -47,15 +50,6 @@ function PoemFormModal() {
           />
         </label>
         <label className="su-label">
-          <textarea
-            value={body}
-            onChange={(e) => setBody(e.target.value)}
-            className="textarea"
-            placeholder="Body"
-            required
-          />
-        </label>
-        <label className="su-label">
           <select
             value={author}
             onChange={(e) => setAuthor(e.target.value)}
@@ -68,6 +62,27 @@ function PoemFormModal() {
             ))}
             <option value={"Not Listed"}>Not Listed</option>
           </select>
+        </label>
+        <label className="su-label">
+          <select
+            value={yearPublished}
+            onChange={(e) => setYearPublished(e.target.value)}
+            className="select"
+            required
+          >
+            {revyears.map(year => (
+              <option value={year}>{year}</option>
+            ))}
+          </select>
+        </label>
+        <label className="su-label">
+          <textarea
+            value={body}
+            onChange={(e) => setBody(e.target.value)}
+            className="textarea"
+            placeholder="Body"
+            required
+          />
         </label>
         <button className="button" type="submit">create</button>
       </form>

@@ -57,14 +57,13 @@ def update_poem(id):
 
     form = PoemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    author = Author.query.filter(Author.name == form.author.data).first()
     if (poem.posted_by == current_user.id):
         if form.validate_on_submit():
             poem.title = form.title.data
             poem.body = form.body.data
             poem.audio = form.audio.data
             poem.year_published = form.year_published.data
-            poem.author_id = author.id
+            poem.author_id = form.author_id.data
 
             db.session.commit()
 

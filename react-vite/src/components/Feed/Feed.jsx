@@ -1,11 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import * as poemActions from '../../redux/poems'
 import "./Feed.css"
 
 function Feed({ data }) {
     const navigate = useNavigate()
     let authors = useSelector(state => state.authors)
+    const dispatch = useDispatch()
 
     let authorArr = Object.values(authors)
 
@@ -21,6 +23,10 @@ function Feed({ data }) {
             }
         })
     }
+
+    // useEffect(() => {
+    //     dispatch(poemActions.fetchPoems())
+    // }, [dispatch])
 
     return (
         <>
