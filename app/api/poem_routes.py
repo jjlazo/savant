@@ -23,6 +23,14 @@ def get_poem(id):
         return {"Poems": poem.to_dict()}
     return {'errors': {'message': 'Poem Not Found'}}, 404
 
+# # get poem of the day
+# @poem_routes.route('/poem-of-the-day')
+# def get_random_poem(id):
+#     poem = Poem.query.get(id)
+#     if poem:
+#         return {"Poems": poem.to_dict()}
+#     return {'errors': {'message': 'Poem Not Found'}}, 404
+
 # create
 @poem_routes.route('', methods=["POST"])
 @login_required
@@ -118,3 +126,28 @@ def create_comment(id):
         return new_comment.to_dict()
 
     return form.errors, 400
+
+
+
+# Create a bookmark
+@poem_routes.route("/<int:id>/bookmarks", methods=["POST"])
+def create_bookmark(id):
+    user = User.query.get(current_user.id)
+    poem = Poem.query.get(id)
+
+    user.bookmarks.append(poem)
+    db.session.commit()
+
+    return poem.to_dict(), 201
+
+
+# Delete a bookmark
+@poem_routes.route("/<int:id>/bookmarks", methods=["DELETE"])
+def delete_bookmark(id):
+    user = User.query.get(current_user.id)
+    poem = Poem.query.get(id)
+
+    user.bookmarks.remove(poem)
+    db.session.commit()
+
+    return {"message": "Successfully deleted"}, 201

@@ -22,6 +22,18 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
+        path: "/poems/:poemId",
+        element: <PoemDetail />,
+      },
+      {
+        path: "/authors/:authorId",
+        element: <AuthorDetail />,
+      },
+      {
+        path: "/users/:userId/bookmarks",
+        element: <Bookmarks />,
+      },
+      {
         path: "/errors",
         element: <NotFound/>
       },

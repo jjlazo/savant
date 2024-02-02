@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from flask_login import login_required
+from flask_login import current_user, login_required
 from app.models import User
 
 user_routes = Blueprint('users', __name__)
@@ -28,6 +28,6 @@ def user(id):
 @user_routes.route('/<int:id>/bookmarks')
 def user_bookmarks(id):
     user = User.query.get(id)
-    if user:
+    if user.id == current_user.id:
         return {"Bookmarks": [poem.to_dict() for poem in user.bookmarks]}
-    return {'errors': {'message': 'User Not Found'}}, 404
+    return { "message": "User unauthorized"}, 401
