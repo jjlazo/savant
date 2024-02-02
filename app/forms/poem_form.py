@@ -16,7 +16,7 @@ from app.models import Author
 class PoemForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
     # author = SelectField('Author', validators=[DataRequired(), choice_dne], choices=AUTHOR_CHOICES)
-    author = StringField('Author', validators=[DataRequired()])
+    author_id = IntegerField('Author', validators=[DataRequired()])
     body = TextAreaField('Body', validators=[DataRequired()])
     audio = URLField('Audio Recording')
     year_published = IntegerField('Year of Publication', validators=[DataRequired()])

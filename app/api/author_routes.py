@@ -23,7 +23,6 @@ def get_author(id):
 
 # create
 @author_routes.route('', methods=["POST"])
-# @login_required
 def create_author():
     user_id = current_user.id
 

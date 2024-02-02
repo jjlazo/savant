@@ -10,17 +10,23 @@ function PoemFormModal() {
   const navigate = useNavigate()
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [author, setAuthor] = useState("");
+  const [yearPublished, setYearPublished] = useState(0);
   // const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
   const curr_user = useSelector(state => state.session.user)
+  let authors = useSelector(state => state.authors)
+
+  let authorArr = Object.values(authors)
 
   const sendPoem = async (e) => {
     e.preventDefault()
     const response = await dispatch(poemActions.createPoem({
       title,
       body,
-      author_id,
-      "posted_by": curr_user.id
+      author,
+      "posted_by": curr_user.id,
+      yearPublished
     }))
     closeModal()
     navigate(`/poems/${response.id}`)
@@ -48,6 +54,20 @@ function PoemFormModal() {
             placeholder="Body"
             required
           />
+        </label>
+        <label className="su-label">
+          <select
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            className="select"
+            placeholder="Author"
+            required
+          >
+            {authorArr.map(auth => (
+              <option value={auth.id}>{auth.name}</option>
+            ))}
+            <option value={"Not Listed"}>Not Listed</option>
+          </select>
         </label>
         <button className="button" type="submit">create</button>
       </form>

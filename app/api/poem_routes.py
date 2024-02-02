@@ -20,7 +20,6 @@ def get_all_poems():
 def get_poem(id):
     poem = Poem.query.get(id)
     if poem:
-        # author = Author.query.get()
         return {"Poems": poem.to_dict()}
     return {'errors': {'message': 'Poem Not Found'}}, 404
 
@@ -32,17 +31,13 @@ def create_poem():
 
     form = PoemForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    author = Author.query.filter(Author.name == form.author.data).first()
-    # print("author >>>>>", author)
-    author_dict = author.to_dict()
-    # print("author >>>>>", author_dict)
-    # print("author >>>>>>>>>>>>", author_dict['id'])
+
     if form.validate_on_submit():
         params = {
             "title": form.title.data,
             "body": form.body.data,
             "posted_by": user_id,
-            "author": author_dict['id'],
+            "author_id": form.author_id.data,
             "year_published": form.year_published.data,
             "audio": form.audio.data
         }
