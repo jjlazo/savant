@@ -1,0 +1,31 @@
+#outer-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    margin: 1px solid black;
+}
+
+#sign-up-label {
+    color: cadetblue;
+    display: flex;
+    align-content: center;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.su-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+}
+
+#su-button {
+    display: flex;
+    justify-content: center;
+    background-color: cadetblue;
+    padding: 3px;
+    color: antiquewhite;
+    border-radius: 2px;
+    width: 100%;
+}
