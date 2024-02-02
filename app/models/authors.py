@@ -18,7 +18,7 @@ class Author(db.Model):
         return {
             'id': self.id,
             'name': self.name,
-            # 'biography': self.biography,
+            'biography': self.biography,
             'posted_by': self.posted_by,
-            'poems': [poem for poem in self.poems]
+            # 'poems': [poem for poem in self.poems]
         }

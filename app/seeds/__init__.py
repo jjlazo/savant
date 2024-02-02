@@ -1,5 +1,8 @@
 from flask.cli import AppGroup
+
+from app.seeds.poems import seed_poems, undo_poems
 from .users import seed_users, undo_users
+from .authors import seed_authors, undo_authors
 
 from app.models.db import db, environment, SCHEMA
 
@@ -16,10 +19,12 @@ def seed():
         # command, which will  truncate all tables prefixed with
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
+        undo_poems()
+        undo_authors()
         undo_users()
     seed_users()
-    # seed_authors()
-    # seed_poems()
+    seed_authors()
+    seed_poems()
     # seed_comments()
     # seed_annotations()
     # Add other seed functions here
@@ -30,7 +35,7 @@ def seed():
 def undo():
     # undo_annotations()
     # undo_comments()
-    # undo_poems()
-    # undo_authors()
+    undo_poems()
+    undo_authors()
     undo_users()
     # Add other undo functions here

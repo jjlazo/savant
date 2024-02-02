@@ -1,0 +1,14 @@
+.data-box {
+    border: red solid 1px;
+    height: fit-content;
+    margin: 5px;
+    padding: 5px;
+}
+
+#container{
+    border: blue solid 1px;
+}
+
+.content{
+    padding: 5px;
+}

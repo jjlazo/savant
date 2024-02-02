@@ -1,0 +1,12 @@
+#poem-of-the-day{
+    width: 200px;
+    height: 250px;
+    border: cadetblue solid 1px;
+    background-color: cadetblue;
+}
+
+.splash-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
