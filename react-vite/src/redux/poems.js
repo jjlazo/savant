@@ -30,105 +30,105 @@ export const deletePoem = (poemId) => ({
 });
 
 export const fetchPoems = () => async dispatch => {
-    const response = await fetch(`/api/poems`)
+  const response = await fetch(`/api/poems`)
 
-    if(response.ok){
-      const poems = await response.json()
-      dispatch(readPoems(poems))
-      // return poems
-    }else{
-        const errors = await response.json()
-        return errors
-    }
+  if (response.ok) {
+    const poems = await response.json()
+    dispatch(readPoems(poems))
+    // return poems
+  } else {
+    const errors = await response.json()
+    return errors
+  }
 }
 
 export const fetchPoemById = (poemId) => async dispatch => {
-    const response = await fetch(`/api/poems/${poemId}`)
+  const response = await fetch(`/api/poems/${poemId}`)
 
-    if(response.ok){
-      const poem = await response.json()
-      dispatch(readPoem(poem))
-      return poem
-    }else{
-        const errors = await response.json()
-        return errors
-    }
+  if (response.ok) {
+    const poem = await response.json()
+    dispatch(readPoem(poem))
+    return poem
+  } else {
+    const errors = await response.json()
+    return errors
+  }
 }
 
 export const fetchCreatePoem = (poem) => async dispatch => {
-    const response = await fetch(`/api/poems`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(poem)
-    })
+  const response = await fetch(`/api/poems`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(poem)
+  })
 
-    if(response.ok){
-        const poem = await response.json()
-        dispatch(createPoem(poem))
-        return poem
-    }else{
-        const errors = await response.json()
-        return errors
-    }
+  if (response.ok) {
+    const poem = await response.json()
+    dispatch(createPoem(poem))
+    return poem
+  } else {
+    const errors = await response.json()
+    return errors
+  }
 }
 
 export const fetchUpdatePoem = (poemId, poem) => async dispatch => {
-    const response = await fetch(`/api/poems/${poemId}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(poem)
-    })
+  const response = await fetch(`/api/poems/${poemId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(poem)
+  })
 
-    if(response.ok){
-        const poem = await response.json()
-        dispatch(updatePoem(poem))
-    }else{
-        const errors = await response.json()
-        return errors
-    }
+  if (response.ok) {
+    const poem = await response.json()
+    dispatch(updatePoem(poem))
+  } else {
+    const errors = await response.json()
+    return errors
+  }
 }
 
 export const fetchDeletePoem = (poemId) => async dispatch => {
-    const response = await fetch(`/api/poems/${poemId}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-    })
+  const response = await fetch(`/api/poems/${poemId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    },
+  })
 
-    if(response.ok){
-        dispatch(deletePoem(poemId))
-    }else{
-        const errors = await response.json()
-        return errors
-    }
+  if (response.ok) {
+    dispatch(deletePoem(poemId))
+  } else {
+    const errors = await response.json()
+    return errors
+  }
 }
 
-// export const fetchBookmarksByUserId = (userId) => async dispatch => {
-//   const response = await fetch(`/api/users/${userId}/bookmarks`)
+export const getPoemsByAuthorId = (authorId) => async dispatch => {
+  const response = await fetch(`/api/authors/${authorId}/poems`)
 
-//   if(response.ok){
-//     const bookmarks = await response.json()
-//     dispatch(loadPoems(bookmarks))
-//     return response
-//   }else{
-//       const errors = await response.json()
-//       return errors
-//   }
-// }
+  if (response.ok) {
+    const poems = await response.json()
+    dispatch(readPoems(poems))
+    return response
+  } else {
+    const errors = await response.json()
+    return errors
+  }
+}
 
 const poemsReducer = (state = {}, action) => {
   switch (action.type) {
     case READ_POEMS: {
       const poemsState = {};
-      if(action.poems.Poems.length){
-          action.poems.Poems.forEach((poem) => {
-            poemsState[poem.id] = poem;
-          });
+      if (action.poems.Poems.length) {
+        action.poems.Poems.forEach((poem) => {
+          poemsState[poem.id] = poem;
+        });
       }
       return poemsState;
     }

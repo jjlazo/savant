@@ -36,7 +36,7 @@ class User(db.Model, UserMixin):
             'id': self.id,
             'username': self.username,
             'email': self.email,
-            'bookmarks': [poem for poem in self.bookmarks],
+            'bookmarks': [poem.title for poem in self.bookmarks],
             'comments': [comment for comment in self.comments],
             'annotations': [note for note in self.annotations]
         }

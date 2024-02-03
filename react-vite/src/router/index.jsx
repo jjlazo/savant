@@ -2,6 +2,10 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
+import NotFound from '../components/NotFound';
+import PoemDetail from '../components/Poems/PoemDetail.jsx';
+import Bookmarks from '../components/Poems/Bookmarks.jsx';
+import AuthorDetail from '../components/Authors/AuthorDetail.jsx';
 import SplashPage from '../components/SplashPage/SplashPage';
 
 export const router = createBrowserRouter([
@@ -20,6 +24,26 @@ export const router = createBrowserRouter([
         path: "signup",
         element: <SignupFormPage />,
       },
+      {
+        path: "/poems/:poemId",
+        element: <PoemDetail />,
+      },
+      {
+        path: "/authors/:authorId",
+        element: <AuthorDetail />,
+      },
+      {
+        path: "/users/:userId/bookmarks",
+        element: <Bookmarks />,
+      },
+      {
+        path: "/errors",
+        element: <NotFound/>
+      },
+      {
+        path: "*",
+        element: <NotFound/>
+      }
     ],
   },
 ]);

@@ -30,92 +30,92 @@ export const deleteAuthor = (authorId) => ({
 });
 
 export const fetchAuthors = () => async dispatch => {
-    const response = await fetch(`/api/authors`)
+  const response = await fetch(`/api/authors`)
 
-    if(response.ok){
-      const authors = await response.json()
-      dispatch(readAuthors(authors))
-      return authors
-    }else{
-        const errors = await response.json()
-        return errors
-    }
+  if (response.ok) {
+    const authors = await response.json()
+    dispatch(readAuthors(authors))
+    return authors
+  } else {
+    const errors = await response.json()
+    return errors
+  }
 }
 
 export const fetchAuthorById = (authorId) => async dispatch => {
-    const response = await fetch(`/api/authors/${authorId}`)
+  const response = await fetch(`/api/authors/${authorId}`)
 
-    if(response.ok){
-      const author = await response.json()
-      dispatch(readAuthor(author))
-      return author
-    }else{
-        const errors = await response.json()
-        return errors
-    }
+  if (response.ok) {
+    const author = await response.json()
+    dispatch(readAuthor(author))
+    return author
+  } else {
+    const errors = await response.json()
+    return errors
+  }
 }
 
 export const fetchCreateAuthor = (author) => async dispatch => {
-    const response = await fetch(`/api/authors`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(author)
-    })
+  const response = await fetch(`/api/authors`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(author)
+  })
 
-    if(response.ok){
-        const author = await response.json()
-        dispatch(createAuthor(author))
-        return author
-    }else{
-        const errors = await response.json()
-        return errors
-    }
+  if (response.ok) {
+    const author = await response.json()
+    dispatch(createAuthor(author))
+    return author
+  } else {
+    const errors = await response.json()
+    return errors
+  }
 }
 
 export const fetchUpdateAuthor = (authorId, author) => async dispatch => {
-    const response = await fetch(`/api/authors/${authorId}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(author)
-    })
+  const response = await fetch(`/api/authors/${authorId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(author)
+  })
 
-    if(response.ok){
-        const author = await response.json()
-        dispatch(updateAuthor(author))
-    }else{
-        const errors = await response.json()
-        return errors
-    }
+  if (response.ok) {
+    const author = await response.json()
+    dispatch(updateAuthor(author))
+  } else {
+    const errors = await response.json()
+    return errors
+  }
 }
 
 export const fetchDeleteAuthor = (authorId) => async dispatch => {
-    const response = await fetch(`/api/authors/${authorId}`, {
-        method: "DELETE",
-        headers: {
-            "Content-Type": "application/json"
-        },
-    })
+  const response = await fetch(`/api/authors/${authorId}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    },
+  })
 
-    if(response.ok){
-        dispatch(deleteAuthor(authorId))
-    }else{
-        const errors = await response.json()
-        return errors
-    }
+  if (response.ok) {
+    dispatch(deleteAuthor(authorId))
+  } else {
+    const errors = await response.json()
+    return errors
+  }
 }
 
 const authorsReducer = (state = {}, action) => {
   switch (action.type) {
     case READ_AUTHORS: {
       const authorsState = {};
-      if(action.authors.Authors.length){
-          action.authors.Authors.forEach((author) => {
-            authorsState[author.id] = author;
-          });
+      if (action.authors.Authors.length) {
+        action.authors.Authors.forEach((author) => {
+          authorsState[author.id] = author;
+        });
       }
       return authorsState;
     }

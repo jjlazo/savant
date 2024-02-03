@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useNavigate } from "react-router-dom";
-import * as poemActions from '../../redux/poems'
+import * as poemActions from '../../redux/poems.js'
 import "./CreateAuthor.css";
 
 function PoemFormModal() {
@@ -10,17 +10,26 @@ function PoemFormModal() {
   const navigate = useNavigate()
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
+  const [author, setAuthor] = useState("");
+  const [yearPublished, setYearPublished] = useState("");
   // const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
   const curr_user = useSelector(state => state.session.user)
+  let authors = useSelector(state => state.authors)
+
+  let authorArr = Object.values(authors)
+  const year = 0;
+  const years = Array.from(new Array(2024),(val, index) => index + year);
+  const revyears = years.reverse()
 
   const sendPoem = async (e) => {
     e.preventDefault()
-    const response = await dispatch(poemActions.createPoem({
+    const response = await dispatch(poemActions.fetchCreatePoem({
       title,
       body,
-      author_id,
-      "posted_by": curr_user.id
+      "author_id": author,
+      "posted_by": curr_user.id,
+      "year_published": yearPublished
     }))
     closeModal()
     navigate(`/poems/${response.id}`)
@@ -39,6 +48,32 @@ function PoemFormModal() {
             placeholder="Title"
             required
           />
+        </label>
+        <label className="su-label">
+          <select
+            value={author}
+            onChange={(e) => setAuthor(e.target.value)}
+            className="select"
+            placeholder="Author"
+            required
+          >
+            {authorArr.map(auth => (
+              <option value={auth.id}>{auth.name}</option>
+            ))}
+            <option value={"Not Listed"}>Not Listed</option>
+          </select>
+        </label>
+        <label className="su-label">
+          <select
+            value={yearPublished}
+            onChange={(e) => setYearPublished(e.target.value)}
+            className="select"
+            required
+          >
+            {revyears.map(year => (
+              <option value={year}>{year}</option>
+            ))}
+          </select>
         </label>
         <label className="su-label">
           <textarea

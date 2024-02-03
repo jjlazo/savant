@@ -9,12 +9,14 @@ import sessionReducer from "./session";
 import authorsReducer from "./authors";
 import poemsReducer from "./poems";
 import commentsReducer from "./comments";
+import bookmarkReducer from "./bookmarks";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   authors: authorsReducer,
   poems: poemsReducer,
-  comments: commentsReducer
+  comments: commentsReducer,
+  bookmarks: bookmarkReducer
 });
 
 let enhancer;
