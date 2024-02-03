@@ -1,41 +1,40 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { useDispatch, useSelector } from 'react-redux';
 import * as commentActions from '../../redux/comments'
 import { useParams } from "react-router-dom";
 import "./FormModals.css";
 
-function CommentFormModal() {
+function UpdateCommentFormModal({ commentId, defaultBody }) {
   const dispatch = useDispatch();
-  const [body, setBody] = useState("");
-  const { poemId } = useParams()
+  const [body, setBody] = useState(defaultBody);
   const sessionUser = useSelector((state) => state.session.user)
   // const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-    const addComment = (e) => {
+    const updateComment = (e, commentId) => {
       e.preventDefault()
-      dispatch(commentActions.fetchCreateComment(poemId, {body}))
+      dispatch(commentActions.fetchUpdateComment(commentId, {body}))
       closeModal()
   }
 
   return (
     <>
-      <h2 id="form-label">Post a Comment</h2>
-      <form className="form" onSubmit={addComment}>
-        <label className="su-label">
+      <h2>Update comment</h2>
+      <form className="form" onSubmit={(e) => updateComment(e, commentId)}>
+        <label>
           <textarea
             value={body}
             onChange={(e) => setBody(e.target.value)}
             className="textarea"
-            placeholder="Comment"
+            placeholder={body}
             required
           />
         </label>
-        <button className="button" type="submit">comment</button>
+        <button className="button" type="submit">update</button>
       </form>
     </>
   );
 }
 
-export default CommentFormModal;
+export default UpdateCommentFormModal;
