@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom";
 // import { Home, Signpost, MoveUp, MoveDown, Eraser, PencilLine, Reply, Flag } from 'lucide-react';
-// import { CommentFormModal, UpdatePostFormModal, UpdateCommentFormModal } from "../ModalComponents";
+import { CommentFormModal, UpdatePoemModal, UpdateCommentmModal } from "../ModalForms";
 import OpenModalButton from "../OpenModalButton";
 import { useDispatch, useSelector } from 'react-redux';
 import * as poemActions from '../../redux/poems'
 import * as commentActions from '../../redux/comments'
 import bookmarkFilled from '../../../public/bookmark-filled.png'
 import bookmarkTransparent from '../../../public/bookmark-transparent.png'
+import replyArrow from '../../../public/reply.png'
 import "./Poems.css"
 
 function PoemDetail() {
@@ -53,7 +54,18 @@ function PoemDetail() {
         <div>
         <p>{poem[poemId]?.title}</p>
         <p>{poem[poemId]?.body}</p>
-        {sessionUser ? (<img src={bookmarkTransparent} alt="bookmark-transparent" className="bookmark-transparent"/>) : null}
+
+        {sessionUser ? (<img src={bookmarkTransparent} onClick={() => alert("feature coming soon")} alt="bookmark-transparent" className="bookmark-transparent"/>) : null}
+        {sessionUser?.id && <OpenModalButton
+                            onButtonClick={closeMenu}
+                            modalComponent={<CommentFormModal />}
+                            buttonComponent={
+                                <button className="comments-button">
+                                    <img src={replyArrow} alt="reply-arrow" className="reply-arrow"/>
+                                leave a comment
+                                </button>
+                            }
+                            />}
         </div>
     )
 }

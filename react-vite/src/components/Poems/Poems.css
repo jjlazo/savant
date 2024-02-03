@@ -1,7 +1,9 @@
 .bookmark-transparent {
     width: 25px;
+    cursor: pointer;
 }
 
 .bookmark-filled {
     width: 25px;
+    cursor: pointer;
 }
