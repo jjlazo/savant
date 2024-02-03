@@ -42,7 +42,7 @@ function Feed({ data }) {
                                     <b>{authorName(poem.author_id)}</b>
                                 </div>
                                 <div className="poem-content">
-                                    <div>{poem.body}</div>
+                                    <p className="poem-body">{poem.body}</p>
                                 </div>
                             </div>
                         </div>

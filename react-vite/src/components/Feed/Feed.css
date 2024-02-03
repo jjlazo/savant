@@ -12,3 +12,11 @@
 .content{
     padding: 5px;
 }
+
+.poem-body {
+    width: auto;
+}
+
+.poem-title {
+    font-weight: bold;
+}

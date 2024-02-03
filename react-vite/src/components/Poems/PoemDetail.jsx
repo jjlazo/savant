@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom";
 // import { Home, Signpost, MoveUp, MoveDown, Eraser, PencilLine, Reply, Flag } from 'lucide-react';
-import OpenModalButton from "../OpenModalButton";
 // import { CommentFormModal, UpdatePostFormModal, UpdateCommentFormModal } from "../ModalComponents";
+import OpenModalButton from "../OpenModalButton";
 import { useDispatch, useSelector } from 'react-redux';
 import * as poemActions from '../../redux/poems'
 import * as commentActions from '../../redux/comments'
-
+import bookmarkFilled from '../../../public/bookmark-filled.png'
+import bookmarkTransparent from '../../../public/bookmark-transparent.png'
+import "./Poems.css"
 
 function PoemDetail() {
     const navigate = useNavigate()
@@ -30,6 +32,9 @@ function PoemDetail() {
     //     e.preventDefault()
     //     dispatch(commentActions.fetchDeleteComment(commentId))
     // }
+    useEffect(()=> {
+        dispatch(poemActions.fetchPoems())
+    }, [poemId])
 
     useEffect(() => {
         async function wrapperFn() {
@@ -45,10 +50,11 @@ function PoemDetail() {
     const closeMenu = () => setShowMenu(false);
 
     return (
-        <>
+        <div>
         <p>{poem[poemId]?.title}</p>
         <p>{poem[poemId]?.body}</p>
-        </>
+        {sessionUser ? (<img src={bookmarkTransparent} alt="bookmark-transparent" className="bookmark-transparent"/>) : null}
+        </div>
     )
 }
 
