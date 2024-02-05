@@ -18,8 +18,8 @@ function UpdatePoemFormModal({ defaultTitle, defaultBody, defaultAuthor, default
     const curr_user = useSelector(state => state.session.user)
     let authors = useSelector(state => state.authors)
     let authorArr = Object.values(authors)
-    const year = 0;
-    const years = Array.from(new Array(2024), (val, index) => index + year);
+    const currentYear = new Date().getFullYear();
+    const years = Array.from(new Array(currentYear + 1),(val, index) => index);
     const revyears = years.reverse()
 
     useEffect(() =>  {
