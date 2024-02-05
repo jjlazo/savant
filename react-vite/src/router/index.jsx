@@ -7,6 +7,8 @@ import PoemDetail from '../components/Poems/PoemDetail.jsx';
 import Bookmarks from '../components/Poems/Bookmarks.jsx';
 import AuthorDetail from '../components/Authors/AuthorDetail.jsx';
 import SplashPage from '../components/SplashPage/SplashPage';
+import AllPoems from '../components/Poems/AllPoems';
+import AllAuthors from '../components/Authors/AllAuthors.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -25,8 +27,16 @@ export const router = createBrowserRouter([
         element: <SignupFormPage />,
       },
       {
+        path: "/poems",
+        element: <AllPoems />,
+      },
+      {
         path: "/poems/:poemId",
         element: <PoemDetail />,
+      },
+      {
+        path: "/authors",
+        element: <AllAuthors />,
       },
       {
         path: "/authors/:authorId",

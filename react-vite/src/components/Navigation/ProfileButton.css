@@ -56,3 +56,7 @@
     flex-direction: column;
     background-color:cadetblue;
 }
+
+#bookmarks-link {
+    text-decoration: none;
+}

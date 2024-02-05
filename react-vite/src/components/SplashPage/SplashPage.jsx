@@ -1,5 +1,6 @@
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom";
 import "./SplashPage.css"
 import Feed from "../Feed";
 import { useDispatch, useSelector } from 'react-redux';
@@ -21,17 +22,35 @@ function SplashPage() {
         dispatch(authorActions.fetchAuthors())
     }, [dispatch])
 
+    const navigateToAuthor = (e, author_id) => {
+        e.stopPropagation()
+        navigate(`/authors/${author_id}`)
+    }
+
+
     return (
         <div className="splash-container">
-            <p>Poem of the Day</p>
+            <p id="potd-header">Poem of the Day</p>
             <div id="poem-of-the-day">
+                <h3 id="potd-title">{poemArr[0]?.title}</h3>
+                <h4 id="potd-author" onClick={(e) => navigateToAuthor(e, poemArr[0]?.author_id)} className="poem-author">{poemArr[0]?.author}</h4>
+                {poemArr[0]?.body.split("\n").map(line => <p key={line} className='line'>{line}</p>)}
 
             </div>
-            <div className="container-content">
+                <h2 id="browse-container">Browse Our Collections:</h2>
+            <div id="collections-container">
+                <div className="explore-link">
+                    <Link to='/poems' className="link">Poems</Link>
+                </div>
+                <div className="explore-link">
+                    <Link to='/authors' className="link">Authors</Link>
+                </div>
+            </div>
+            {/* <div className="container-content">
                 <div className="feed">
                     <Feed data={poemArr} />
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }

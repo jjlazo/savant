@@ -1,3 +1,5 @@
 import PoemDetail from "./PoemDetail";
+import Bookmarks from "./Bookmarks";
+import AllPoems from "./AllPoems";
 
-export default PoemDetail
+export{ PoemDetail, Bookmarks, AllPoems}

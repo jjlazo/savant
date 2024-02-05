@@ -70,7 +70,7 @@ function ProfileButton() {
                 />
               </li>
               <li id="read-bookmarks">
-                <Link to={`/users/${user.id}/bookmarks`} onClick={closeMenu}>Bookmarks</Link>
+                <Link to={`/users/${user.id}/bookmarks`} id="bookmarks-link" onClick={closeMenu}>Bookmarks</Link>
               </li>
               <li id="lg-butt-cont">
                 <button onClick={logout} id="logout-button">Log Out</button>
