@@ -20,7 +20,7 @@ def get_all_poems():
 def get_poem(id):
     poem = Poem.query.get(id)
     if poem:
-        return {"Poems": poem.to_dict()}
+        return {"Poem": poem.to_dict()}
     return {'errors': {'message': 'Poem Not Found'}}, 404
 
 # # get poem of the day
@@ -28,7 +28,7 @@ def get_poem(id):
 # def get_random_poem(id):
 #     poem = Poem.query.get(id)
 #     if poem:
-#         return {"Poems": poem.to_dict()}
+#         return {"Poem": poem.to_dict()}
 #     return {'errors': {'message': 'Poem Not Found'}}, 404
 
 # create

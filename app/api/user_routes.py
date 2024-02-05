@@ -29,5 +29,5 @@ def user(id):
 def user_bookmarks(id):
     user = User.query.get(id)
     if user.id == current_user.id:
-        return {"Bookmarks": [poem.to_dict() for poem in user.bookmarks]}
+        return {"Poems": [poem.to_dict() for poem in user.bookmarks]}
     return { "message": "User unauthorized"}, 401

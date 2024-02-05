@@ -14,10 +14,10 @@ function UpdateAuthorFormModal({ defaultName, defaultBiography }) {
   // const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-    const updateAuthor = (e, authorId) => {
-      e.preventDefault()
-      dispatch(authorActions.fetchUpdateAuthor(authorId, {name, biography}))
-      closeModal()
+  const updateAuthor = (e, authorId) => {
+    e.preventDefault()
+    dispatch(authorActions.fetchUpdateAuthor(authorId, {name, biography}))
+    closeModal()
   }
 
   return (

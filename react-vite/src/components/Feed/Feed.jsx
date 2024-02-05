@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import * as poemActions from '../../redux/poems'
+import bookwormError from '../../../public/boooookworm.png';
 import "./Feed.css"
 
 function Feed({ data }) {
@@ -42,7 +43,7 @@ function Feed({ data }) {
                                     <b>{authorName(poem.author_id)}</b>
                                 </div>
                                 <div className="poem-content">
-                                    <p className="poem-body">{poem.body}</p>
+                                    {poem.body.split('\n').map(line => <p className="poem-body" key={line}>{line}</p>)}
                                 </div>
                             </div>
                         </div>
@@ -52,7 +53,7 @@ function Feed({ data }) {
             }
             {!data.length &&
                 <div className="no-poems">
-                    <img className="book-worm" src={""} alt="bookworm" />
+                    <img className="book-worm" src={bookwormError} alt="bookworm" />
                     <div className="no-poem-text"><b>No poems found!</b></div>
                 </div>
             }

@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import * as poemActions from '../../redux/poems'
+import * as authorActions from '../../redux/authors'
 import { useParams } from "react-router-dom";
 import "./FormModals.css";
 
@@ -21,6 +22,9 @@ function UpdatePoemFormModal({ defaultTitle, defaultBody, defaultAuthor, default
     const years = Array.from(new Array(2024), (val, index) => index + year);
     const revyears = years.reverse()
 
+    useEffect(() =>  {
+        dispatch(authorActions.fetchAuthors())
+    }, [dispatch])
 
     const updatePoem = (e) => {
         e.preventDefault()

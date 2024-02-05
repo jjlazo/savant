@@ -17,6 +17,17 @@
     width: auto;
 }
 
+.no-poems {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 .poem-title {
     font-weight: bold;
+}
+
+.book-worm {
+    height: 200px;
+    width: 183px;
 }
