@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useNavigate } from "react-router-dom";
 import * as poemActions from '../../redux/poems.js'
+import * as authorActions from '../../redux/authors.js'
 import "./FormModals.css";
 
 function PoemFormModal() {

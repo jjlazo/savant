@@ -61,7 +61,7 @@ function UpdatePoemFormModal({ defaultTitle, defaultBody, defaultAuthor, default
                         required
                     >
                         {authorArr.map(auth => (
-                            <option value={auth.id}>{auth.name}</option>
+                            <option value={auth.id} key={auth.id}>{auth.name}</option>
                         ))}
                         <option value={"Not Listed"}>Not Listed</option>
                     </select>
@@ -74,7 +74,7 @@ function UpdatePoemFormModal({ defaultTitle, defaultBody, defaultAuthor, default
                         required
                     >
                         {revyears.map(year => (
-                            <option value={year}>{year}</option>
+                            <option value={year} key={year}>{year}</option>
                         ))}
                     </select>
                 </label>
