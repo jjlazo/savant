@@ -7,6 +7,9 @@ import SignupFormModal from "../SignupFormModal";
 import './ProfileButton.css'
 import AuthorFormModal from "../ModalForms/CreateAuthorModal";
 import PoemFormModal from "../ModalForms/CreatePoemModal";
+import { BookMarked } from "lucide-react";
+import Bookmarks from "../Poems/Bookmarks";
+import { Link } from "react-router-dom";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -65,6 +68,9 @@ function ProfileButton() {
                   onItemClick={closeMenu}
                   modalComponent={<PoemFormModal />}
                 />
+              </li>
+              <li id="read-bookmarks">
+                <Link to={`/users/${user.id}/bookmarks`} onClick={closeMenu}>Bookmarks</Link>
               </li>
               <li id="lg-butt-cont">
                 <button onClick={logout} id="logout-button">Log Out</button>

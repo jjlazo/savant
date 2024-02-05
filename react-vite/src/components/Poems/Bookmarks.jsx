@@ -14,11 +14,15 @@ function Bookmarks() {
     const { state } = useLocation()
     const [showMenu, setShowMenu] = useState(false);
     const sessionUser = useSelector((state) => state.session.user)
-    const poems = useSelector(state => state.poems)
     const bookmarks = useSelector(state => state.bookmarks)
+    const { userId } = useParams()
+
+    if (sessionUser?.id !== parseInt(userId, 10)) {
+        navigate('/');
+    }
 
     let bookmarksArr = Object.values(bookmarks)
-    let poemsArr = Object.values(poems)
+    // let poemsArr = Object.values(poems)
 
     useEffect(() => {
         async function wrapperFn() {
@@ -37,12 +41,11 @@ function Bookmarks() {
                 <div className="feed">
                     <div className="poem-header">
                         <div className="poem-content">
-                            <img onClick={() => navigate("/")} className="poem" src={""} alt="poem" />
                             {state?.username || bookmarksArr[0]?.username}
                         </div>
                         <div className="poem-divider"></div>
                     </div>
-                    <Feed data={poemsArr} />
+                    <Feed data={bookmarksArr} />
                 </div>
             </div>
         </div>

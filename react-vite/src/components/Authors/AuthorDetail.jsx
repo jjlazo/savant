@@ -6,6 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as poemActions from '../../redux/poems'
 import * as authorActions from '../../redux/authors'
 import Feed from '../Feed'
+import { UpdateAuthorFormModal } from "../ModalForms";
+import { Eraser, PencilLine } from "lucide-react";
+import OpenModalButton from "../OpenModalButton";
 
 
 function AuthorDetail() {
@@ -46,10 +49,22 @@ function AuthorDetail() {
 
     const closeMenu = () => setShowMenu(false);
 
+    const deleteAuthor = (e) => {
+        e.preventDefault()
+        dispatch(authorActions.fetchDeleteAuthor(authorId));
+        navigate(`/`)
+    }
+
     return (
         <>
         {<p>{author[authorId]?.name}</p>}
         {<p>{author[authorId]?.biography}</p>}
+        {(sessionUser?.id == author[authorId]?.posted_by) && <Eraser onClick={deleteAuthor} strokeWidth={"2.05px"} className="update-icon" />}
+        {sessionUser?.id == author[authorId]?.posted_by && <OpenModalButton
+            onButtonClick={closeMenu}
+            modalComponent={<UpdateAuthorFormModal defaultName={author[authorId]?.name} defaultBiography={author[authorId]?.biography} />}
+            buttonText={<PencilLine strokeWidth={"2.05px"} className="update-icon" />}
+        />}
         <p>Browse our Collection</p>
         <Feed data={poemData}/>
         </>

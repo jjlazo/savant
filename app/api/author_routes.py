@@ -18,7 +18,7 @@ def get_all_authors():
 def get_author(id):
     author = Author.query.get(id)
     if author:
-        return {"Authors": author.to_dict()}
+        return {"Author": author.to_dict()}
     return {'errors': {'message': 'Author Not Found'}}, 404
 
 # create

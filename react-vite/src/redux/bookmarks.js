@@ -23,7 +23,7 @@ export const fetchGetAllBookmarks = (userId) => async dispatch => {
     if(response.ok){
       const bookmarks = await response.json()
       dispatch(readBookmarks(bookmarks))
-      return response
+      return bookmarks
     }else{
         const errors = await response.json()
         return errors

@@ -1,25 +1,33 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { useNavigate } from "react-router-dom";
 import * as poemActions from '../../redux/poems.js'
-import "./CreateAuthor.css";
+import * as authorActions from '../../redux/authors.js'
+import "./FormModals.css";
 
 function PoemFormModal() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
-  const [author, setAuthor] = useState("");
-  const [yearPublished, setYearPublished] = useState("");
-  // const [errors, setErrors] = useState({});
-  const { closeModal } = useModal();
+
+  const currentYear = new Date().getFullYear();
   const curr_user = useSelector(state => state.session.user)
   let authors = useSelector(state => state.authors)
 
+  const [title, setTitle] = useState("");
+  const [body, setBody] = useState("");
+  const [author, setAuthor] = useState(1);
+  const [yearPublished, setYearPublished] = useState(currentYear);
+  // const [errors, setErrors] = useState({});
+  const { closeModal } = useModal();
+
+  useEffect(() => {
+    dispatch(authorActions.fetchAuthors())
+}, [dispatch])
+
   let authorArr = Object.values(authors)
-  const year = 0;
-  const years = Array.from(new Array(2024),(val, index) => index + year);
+
+  const years = Array.from(new Array(currentYear + 1),(val, index) => index);
   const revyears = years.reverse()
 
   const sendPoem = async (e) => {
@@ -58,7 +66,7 @@ function PoemFormModal() {
             required
           >
             {authorArr.map(auth => (
-              <option value={auth.id}>{auth.name}</option>
+              <option key={auth.id} value={auth.id}>{auth.name}</option>
             ))}
             <option value={"Not Listed"}>Not Listed</option>
           </select>
@@ -71,7 +79,7 @@ function PoemFormModal() {
             required
           >
             {revyears.map(year => (
-              <option value={year}>{year}</option>
+              <option key={year} value={year}>{year}</option>
             ))}
           </select>
         </label>
