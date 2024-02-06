@@ -24,3 +24,16 @@
   height: 25px;
   padding: 3px;
 }
+
+#user-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 20%;
+}
+
+button {
+  border: solid 2px cadetblue;
+  background-color: white;
+  cursor: pointer;
+  border-radius: 2px;
+}

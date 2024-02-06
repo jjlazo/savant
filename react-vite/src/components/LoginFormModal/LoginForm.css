@@ -21,11 +21,12 @@
     padding: 5px;
 }
 
-#lfm-button {
+.lfm-button {
     display: flex;
     justify-content: center;
     background-color: cadetblue;
     padding: 3px;
+    margin: 2px;
     color: antiquewhite;
     border-radius: 2px;
     width: 100%;

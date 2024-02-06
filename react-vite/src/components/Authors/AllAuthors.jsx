@@ -41,12 +41,12 @@ function AllAuthors() {
                 data?.map((poem) => (
                     <div key={poem.id} onClick={() => navigate(`/poems/${poem.id}`)} className="content">
                         <div className="poem-bubble">
+                            <div onClick={(e) => navigateToAuthor(e, poem.author_id)} className="poem-author">
+                                <b>{authorName(poem.author_id)}</b>
+                            </div>
                             <div>
                                 <div className="poem-header">
                                     <div className="poem-title">{poem?.title}</div>
-                                </div>
-                                <div onClick={(e) => navigateToAuthor(e, poem.author_id)} className="poem-author">
-                                    <b>{authorName(poem.author_id)}</b>
                                 </div>
                             </div>
                         </div>
