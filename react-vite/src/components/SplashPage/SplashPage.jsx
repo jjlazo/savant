@@ -39,11 +39,11 @@ function SplashPage() {
             </div>
                 <h2 id="browse-container">Browse Our Collections:</h2>
             <div id="collections-container">
-                <div className="explore-link">
-                    <Link to='/poems' className="link">Poems</Link>
+                <div className="explore-button">
+                    <button onClick={()=> navigate(`/poems`)} className="button">Poems</button>
                 </div>
-                <div className="explore-link">
-                    <Link to='/authors' className="link">Authors</Link>
+                <div className="explore-button">
+                    <button onClick={() => navigate(`/authors`)} className="button">Authors</button>
                 </div>
             </div>
             {/* <div className="container-content">
