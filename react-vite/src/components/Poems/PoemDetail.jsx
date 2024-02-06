@@ -42,9 +42,9 @@ function PoemDetail() {
     }, [poemId])
 
     const handleBookmarking = () => {
-        if(bookmarked){
+        if (bookmarked) {
             dispatch(bookmarkActions.fetchDeleteBookmark(poemId))
-        }else{
+        } else {
             dispatch(bookmarkActions.fetchCreateBookmark(poemId))
         }
         setBookmarked(!bookmarked)
@@ -64,18 +64,22 @@ function PoemDetail() {
     const closeMenu = () => setShowMenu(false);
 
     return (
-        <div>
-            <p>{poem[poemId]?.title}</p>
-            {sessionUser ? (<img src={bookmarked ? bookmarkFilled : bookmarkTransparent} onClick={handleBookmarking} alt="bookmark-transparent" className="bookmark-transparent" />) : null}
-
-            {poem[poemId]?.body.split('\n').map(line => <p key={line}>{line}</p>)}
-            <div className="poem-update">
-                {(sessionUser?.id == poem[poemId]?.posted_by) && <Eraser onClick={deletePost} strokeWidth={"2.05px"} className="update-icon" />}
-                {sessionUser?.id == poem[poemId]?.posted_by && <OpenModalButton
-                    onButtonClick={closeMenu}
-                    modalComponent={<UpdatePoemFormModal defaultTitle={poem[poemId]?.title} defaultBody={poem[poemId]?.body} defaultAuthor={poem[poemId]?.author_id} defaultYearPublished={poem[poemId]?.year_published} />}
-                    buttonText={<PencilLine strokeWidth={"2.05px"} className="update-icon" />}
-                />}
+        <div id="poem-container">
+            <div id="poem-contents">
+                <p id="poem-title">{poem[poemId]?.title}
+                    {sessionUser ? (<img src={bookmarked ? bookmarkFilled : bookmarkTransparent} onClick={handleBookmarking} alt="bookmark-transparent" className="bookmark-transparent" />) : null}
+                </p>
+                <p id="poem-author">{poem[poemId]?.author}
+                    <div className="poem-update">
+                        {(sessionUser?.id == poem[poemId]?.posted_by) && <Eraser onClick={deletePost} strokeWidth={"2.05px"} className="update-icon" />}
+                        {sessionUser?.id == poem[poemId]?.posted_by && <OpenModalButton
+                            onButtonClick={closeMenu}
+                            modalComponent={<UpdatePoemFormModal defaultTitle={poem[poemId]?.title} defaultBody={poem[poemId]?.body} defaultAuthor={poem[poemId]?.author_id} defaultYearPublished={poem[poemId]?.year_published} />}
+                            buttonText={<PencilLine strokeWidth={"2.05px"} className="update-icon" />}
+                        />}
+                    </div>
+                </p>
+                {poem[poemId]?.body.split('\n').map(line => <p key={line} className="line">{line}</p>)}
             </div>
             <div className="comment-content-container">
                 <div className="comments-info">
@@ -87,13 +91,12 @@ function PoemDetail() {
                             comment
                         </>}
                     />}
-                    <div>{commentData.length} {commentData.length == 1 ? 'comment' : "comments"}</div>
+                    <div id="comment-count">{commentData.length} {commentData.length == 1 ? 'comment' : "comments"}</div>
                 </div>
                 {commentData?.map((comment) => (
                     <div key={comment?.id} className="comment-content">
-                        <div>
+                        <div className="comment-header">
                             <div><b>{comment?.username}</b></div>
-                            <div>{comment?.body}</div>
                             <div className="comment-update">
                                 {(sessionUser?.id == comment?.user_id) && <Eraser onClick={(e) => deleteComment(e, comment.id)} strokeWidth={"2.05px"} className="update-icon" />}
                                 {sessionUser?.id == comment?.user_id && <OpenModalButton
@@ -103,6 +106,7 @@ function PoemDetail() {
                                 />}
                                 {comment?.created_at != comment?.updated_at && <div className="edited">Edited</div>}
                             </div>
+                            <div>{comment?.body}</div>
                         </div>
                     </div>
                 ))
