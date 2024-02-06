@@ -9,7 +9,6 @@ import * as commentActions from '../../redux/comments'
 import * as bookmarkActions from '../../redux/bookmarks'
 import bookmarkFilled from '../../../public/bookmark-filled.png'
 import bookmarkTransparent from '../../../public/bookmark-transparent.png'
-import replyArrow from '../../../public/reply.png'
 import "./Poems.css"
 
 function PoemDetail() {
