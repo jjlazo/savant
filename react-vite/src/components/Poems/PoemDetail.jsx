@@ -89,7 +89,7 @@ function PoemDetail() {
                     />}
                     <div>{commentData.length} {commentData.length == 1 ? 'comment' : "comments"}</div>
                 </div>
-                {commentData.map((comment) => (
+                {commentData?.map((comment) => (
                     <div key={comment?.id} className="comment-content">
                         <div>
                             <div><b>{comment?.username}</b></div>

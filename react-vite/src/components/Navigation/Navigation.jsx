@@ -44,7 +44,7 @@ function Navigation() {
       {user ? (<ul id="user-buttons">
         <li className="list-items">
           <OpenModalButton
-            buttonText={<><BookUserIcon /></>}
+            buttonText={<BookUserIcon />}
             onButtonClick={closeMenu}
             modalComponent={<AuthorFormModal />}
             className="nav-button"
@@ -52,7 +52,7 @@ function Navigation() {
         </li>
         <li className="list-items">
           <OpenModalButton
-            buttonText={<><BookPlus /></>}
+            buttonText={<BookPlus />}
             onItemClick={closeMenu}
             modalComponent={<PoemFormModal />}
             className="nav-button"

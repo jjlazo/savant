@@ -1,0 +1,38 @@
+#author-detail-container{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ background-color: rgb(159, 209, 211);
+ height: 500px;
+}
+
+#update-icons {
+    width: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#author-name {
+    border: 1px solid cadetblue;
+    border-radius: 2px;
+    width: fit-content;
+    padding: 8px;
+    background-color: white;
+}
+
+#author-bio {
+    border: 1px solid cadetblue;
+    border-radius: 2px;
+    width: 50%;
+    padding: 8px;
+    background-color: white;
+}
+
+.update-icon{
+    background-color: white;
+}
+
+.poem-titles {
+    cursor: pointer;
+}

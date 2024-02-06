@@ -1,8 +1,6 @@
 import React, { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
-import { Link } from "react-router-dom";
 import "./SplashPage.css"
-import Feed from "../Feed";
 import { useDispatch, useSelector } from 'react-redux';
 import * as poemActions from '../../redux/poems'
 import * as authorActions from '../../redux/authors'
@@ -37,20 +35,15 @@ function SplashPage() {
                 {poemArr[0]?.body.split("\n").map(line => <p key={line} className='line'>{line}</p>)}
 
             </div>
-                <h2 id="browse-container">Browse Our Collections:</h2>
+            <h3 id="browse-container">Browse Our Collections:</h3>
             <div id="collections-container">
                 <div className="explore-button">
-                    <button onClick={()=> navigate(`/poems`)} className="button">Poems</button>
+                    <button onClick={() => navigate(`/poems`)} className="button">Poems</button>
                 </div>
                 <div className="explore-button">
                     <button onClick={() => navigate(`/authors`)} className="button">Authors</button>
                 </div>
             </div>
-            {/* <div className="container-content">
-                <div className="feed">
-                    <Feed data={poemArr} />
-                </div>
-            </div> */}
         </div>
     );
 }
