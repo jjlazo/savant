@@ -1,6 +1,6 @@
 #poem-of-the-day{
-    width: 200px;
-    height: 250px;
+    width: 50%;
+    height: auto;
     border: cadetblue solid 1px;
     background-color: cadetblue;
 }
@@ -9,4 +9,26 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.link {
+    text-decoration: none;
+}
+
+#collections-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 75%;
+}
+
+.link {
+    width: fit-content;
+    height: fit-content;
+    padding: 3px;
+    border: cadetblue 1px solid;
+}
+
+.explore-link {
+    display: flex;
 }

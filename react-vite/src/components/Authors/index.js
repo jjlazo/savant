@@ -1,3 +1,4 @@
 import AuthorDetail from "./AuthorDetail";
+import AllAuthors from "./AllAuthors";
 
-export default AuthorDetail
+export  {AuthorDetail, AllAuthors}
