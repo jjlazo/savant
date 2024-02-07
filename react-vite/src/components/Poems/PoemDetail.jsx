@@ -30,12 +30,14 @@ function PoemDetail() {
     const deletePost = (e) => {
         e.preventDefault()
         dispatch(poemActions.fetchDeletePoem(poemId))
+        closeModal()
         navigate(`/`)
     }
 
     const deleteComment = (e, commentId) => {
         e.preventDefault()
         dispatch(commentActions.fetchDeleteComment(commentId))
+        closeModal()
     }
 
     useEffect(() => {
@@ -73,16 +75,17 @@ function PoemDetail() {
                 <p id="poem-author">{poem[poemId]?.author}
                     <div className="poem-update">
                         {(sessionUser?.id == poem[poemId]?.posted_by) && <OpenModalButton
-                                buttonText={<Eraser className="update-icon" />}
-                                modalComponent={(
-                                    <div id="confirm-delete-modal">
-                                        <h2 id="form-label">Confirm Delete</h2>
-                                        <span>Are you sure you want to remove this poem?</span>
-                                        <button id='confirm-delete-button' type='button' onClick={deletePost}>Yes</button>
-                                        <button id='confirm-delete-cancel' type='button' onClick={closeModal}>No </button>
-                                    </div>
-                                )}
-                            />}
+                            onButtonClick={closeMenu}
+                            buttonText={<Eraser className="update-icon" />}
+                            modalComponent={(
+                                <div id="confirm-delete-modal">
+                                    <h2 id="form-label">Confirm Delete</h2>
+                                    <span>Are you sure you want to remove this poem?</span>
+                                    <button id='confirm-delete-button' type='button' onClick={deletePost}>Yes</button>
+                                    <button id='confirm-delete-cancel' type='button' onClick={closeModal}>No </button>
+                                </div>
+                            )}
+                        />}
                         {sessionUser?.id == poem[poemId]?.posted_by && <OpenModalButton
                             onButtonClick={closeMenu}
                             modalComponent={<UpdatePoemFormModal defaultTitle={poem[poemId]?.title} defaultBody={poem[poemId]?.body} defaultAuthor={poem[poemId]?.author_id} defaultYearPublished={poem[poemId]?.year_published} />}
@@ -109,7 +112,18 @@ function PoemDetail() {
                         <div className="comment-header">
                             <div><b>{comment?.username}</b></div>
                             <div className="comment-update">
-                                {(sessionUser?.id == comment?.user_id) && <Eraser onClick={(e) => deleteComment(e, comment.id)} strokeWidth={"2.05px"} className="update-icon" />}
+                                {(sessionUser?.id == comment?.user_id) && <OpenModalButton
+                                    onButtonClick={closeMenu}
+                                    buttonText={<Eraser className="update-icon" />}
+                                    modalComponent={(
+                                        <div id="confirm-delete-modal">
+                                            <h2 id="form-label">Confirm Delete</h2>
+                                            <span>Are you sure you want to remove this comment?</span>
+                                            <button id='confirm-delete-button' type='button' onClick={(e)=> deleteComment(e, comment.id)}>Yes</button>
+                                            <button id='confirm-delete-cancel' type='button' onClick={closeModal}>No </button>
+                                        </div>
+                                    )}
+                                />}
                                 {sessionUser?.id == comment?.user_id && <OpenModalButton
                                     onButtonClick={closeMenu}
                                     modalComponent={<UpdateCommentFormModal commentId={comment?.id} defaultBody={comment?.body} />}
