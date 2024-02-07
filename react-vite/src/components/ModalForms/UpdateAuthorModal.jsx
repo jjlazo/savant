@@ -22,9 +22,10 @@ function UpdateAuthorFormModal({ defaultName, defaultBiography }) {
 
   return (
     <>
-      <h2>Update Author</h2>
+      <h2 id="form-label">Update Author</h2>
       <form className="form" onSubmit={(e) => updateAuthor(e, authorId)}>
-        <label>
+        <label className="su-label">
+          Name
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -33,7 +34,8 @@ function UpdateAuthorFormModal({ defaultName, defaultBiography }) {
             required
           />
         </label>
-        <label>
+        <label className="su-label">
+          Biography
           <textarea
             value={biography}
             onChange={(e) => setBiography(e.target.value)}

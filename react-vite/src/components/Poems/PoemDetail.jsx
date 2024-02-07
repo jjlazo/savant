@@ -10,6 +10,7 @@ import * as bookmarkActions from '../../redux/bookmarks'
 import bookmarkFilled from '../../../public/bookmark-filled.png'
 import bookmarkTransparent from '../../../public/bookmark-transparent.png'
 import "./Poems.css"
+import { useModal } from "../../context/Modal";
 
 function PoemDetail() {
     const navigate = useNavigate()
@@ -19,6 +20,7 @@ function PoemDetail() {
     let bookmarks = useSelector(state => state.bookmarks)
     const [bookmarked, setBookmarked] = useState(bookmarks.hasOwnProperty(poemId));
     const dispatch = useDispatch()
+    const { closeModal } = useModal();
 
     let poem = useSelector(state => state.poems)
     let comments = useSelector(state => state.comments)
@@ -70,7 +72,17 @@ function PoemDetail() {
                 </p>
                 <p id="poem-author">{poem[poemId]?.author}
                     <div className="poem-update">
-                        {(sessionUser?.id == poem[poemId]?.posted_by) && <Eraser onClick={deletePost} strokeWidth={"2.05px"} className="update-icon" />}
+                        {(sessionUser?.id == poem[poemId]?.posted_by) && <OpenModalButton
+                                buttonText={<Eraser className="update-icon" />}
+                                modalComponent={(
+                                    <div id="confirm-delete-modal">
+                                        <h2 id="form-label">Confirm Delete</h2>
+                                        <span>Are you sure you want to remove this poem?</span>
+                                        <button id='confirm-delete-button' type='button' onClick={deletePost}>Yes</button>
+                                        <button id='confirm-delete-cancel' type='button' onClick={closeModal}>No </button>
+                                    </div>
+                                )}
+                            />}
                         {sessionUser?.id == poem[poemId]?.posted_by && <OpenModalButton
                             onButtonClick={closeMenu}
                             modalComponent={<UpdatePoemFormModal defaultTitle={poem[poemId]?.title} defaultBody={poem[poemId]?.body} defaultAuthor={poem[poemId]?.author_id} defaultYearPublished={poem[poemId]?.year_published} />}
