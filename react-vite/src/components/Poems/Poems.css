@@ -13,6 +13,7 @@
     flex-direction: column;
     align-items: center;
     background-color: cadetblue;
+    padding-bottom: 200px;
 }
 
 #poem-title{

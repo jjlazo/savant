@@ -30,6 +30,7 @@ function PoemDetail() {
     const deletePost = (e) => {
         e.preventDefault()
         dispatch(poemActions.fetchDeletePoem(poemId))
+        closeModal()
         navigate(`/`)
     }
 
@@ -73,6 +74,7 @@ function PoemDetail() {
                 <p id="poem-author">{poem[poemId]?.author}
                     <div className="poem-update">
                         {(sessionUser?.id == poem[poemId]?.posted_by) && <OpenModalButton
+                                onButtonClick={closeMenu}
                                 buttonText={<Eraser className="update-icon" />}
                                 modalComponent={(
                                     <div id="confirm-delete-modal">
