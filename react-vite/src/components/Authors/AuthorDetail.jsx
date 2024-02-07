@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { useNavigate, useParams } from "react-router-dom";
-// import OpenModalButton from "../OpenModalButton";
-// import { CommentFormModal, UpdatePostFormModal, UpdateCommentFormModal } from "../ModalComponents";
+// import { PoemFormModal } from "../ModalComponents";
 import { useDispatch, useSelector } from 'react-redux';
 import * as poemActions from '../../redux/poems'
 import * as authorActions from '../../redux/authors'
@@ -9,6 +8,8 @@ import Feed from '../Feed'
 import { UpdateAuthorFormModal } from "../ModalForms";
 import { Eraser, PencilLine } from "lucide-react";
 import OpenModalButton from "../OpenModalButton";
+import './Authors.css'
+
 
 
 function AuthorDetail() {
@@ -21,13 +22,6 @@ function AuthorDetail() {
     const poems = useSelector(state => state.poems)
     let poemData = Object.values(poems)
     const author = useSelector(state => state.authors)
-
-    // conditional for poster of author
-    // const deleteAuthor = (e) => {
-    //     e.preventDefault()
-    //     dispatch(authorActions.fetchDeleteAuthor(authorId))
-    //     // navigate(`/user/${sessionUser.id}/poems/`)
-    // }
 
     useEffect(() => {
         dispatch(poemActions.getPoemsByAuthorId(authorId))
@@ -56,18 +50,22 @@ function AuthorDetail() {
     }
 
     return (
-        <>
-        {<p>{author[authorId]?.name}</p>}
-        {<p>{author[authorId]?.biography}</p>}
-        {(sessionUser?.id == author[authorId]?.posted_by) && <Eraser onClick={deleteAuthor} strokeWidth={"2.05px"} className="update-icon" />}
-        {sessionUser?.id == author[authorId]?.posted_by && <OpenModalButton
-            onButtonClick={closeMenu}
-            modalComponent={<UpdateAuthorFormModal defaultName={author[authorId]?.name} defaultBiography={author[authorId]?.biography} />}
-            buttonText={<PencilLine strokeWidth={"2.05px"} className="update-icon" />}
-        />}
-        <p>Browse our Collection</p>
-        <Feed data={poemData}/>
-        </>
+        <div id="author-detail-container">
+            {<h3 id="author-name">{author[authorId]?.name}</h3>}
+            <div id="update-icons">
+                {(sessionUser?.id == author[authorId]?.posted_by) && <button onClick={deleteAuthor}>
+                    <Eraser strokeWidth={"2.05px"} className="update-icon" />
+                </button>}
+                {sessionUser?.id == author[authorId]?.posted_by && <OpenModalButton
+                    onButtonClick={closeMenu}
+                    modalComponent={<UpdateAuthorFormModal defaultName={author[authorId]?.name} defaultBiography={author[authorId]?.biography} />}
+                    buttonText={<PencilLine strokeWidth={"2.05px"} className="update-icon" />}
+                />}
+            </div>
+            {<p id="author-bio">{author[authorId]?.biography}</p>}
+            <p id="browse-tag">Browse our Collection:</p>
+            {poemData.map(poem => (<h4 key={poem.id} onClick={()=> navigate(`/poems/${poem.id}`)} className="poem-titles">{poem?.author_id == authorId && poem?.title}</h4>))}
+        </div>
     )
 }
 

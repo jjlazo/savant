@@ -20,9 +20,9 @@ function UpdateCommentFormModal({ commentId, defaultBody }) {
 
   return (
     <>
-      <h2>Update comment</h2>
+      <h2 id="form-label">Update comment</h2>
       <form className="form" onSubmit={(e) => updateComment(e, commentId)}>
-        <label>
+        <label className="su-label">
           <textarea
             value={body}
             onChange={(e) => setBody(e.target.value)}

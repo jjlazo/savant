@@ -52,7 +52,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        <p className="error-message">{errors.email && errors.email}</p>
         <label className='lfm-label'>
           Password
           <input
@@ -62,7 +62,7 @@ function LoginFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        <p className="error-message">{errors.password && errors.password}</p>
         <button type="submit" className='lfm-button'>Log In</button>
         <button onClick={handleDemoSubmit} className="lfm-button" type="submit">Demo user</button>
       </form>

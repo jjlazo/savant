@@ -30,6 +30,7 @@ function AuthorFormModal() {
       <h2 id="form-label">Create an Author</h2>
       <form className="form" onSubmit={sendPost}>
         <label className="su-label">
+          Name
           <input
             type="text"
             value={name}
@@ -40,6 +41,7 @@ function AuthorFormModal() {
           />
         </label>
         <label className="su-label">
+          Biography
           <textarea
             value={biography}
             onChange={(e) => setBiography(e.target.value)}

@@ -1,18 +1,43 @@
 #poem-of-the-day{
     width: 50%;
     height: auto;
-    border: cadetblue solid 1px;
+    border: cadetblue solid 2px;
+    background-color: white;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 2px;
+}
+
+#potd-header{
+    border: cadetblue solid 2px;
     background-color: cadetblue;
+    padding: 8px;
+    border-radius: 2px;
+}
+#potd-title{
+    color: cadetblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#potd-author{
+    color: cadetblue;
+    cursor: pointer;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.line{
+    color: cadetblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .splash-container{
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.link {
-    text-decoration: none;
+    background-color: rgb(159, 209, 211);
+    margin: 0px;
 }
 
 #collections-container {
@@ -20,6 +45,7 @@
     flex-direction: row;
     justify-content: space-evenly;
     width: 75%;
+    margin-bottom: 8px;
 }
 
 .link {
@@ -27,8 +53,14 @@
     height: fit-content;
     padding: 3px;
     border: cadetblue 1px solid;
+    text-decoration: none;
 }
 
 .explore-link {
     display: flex;
+}
+
+#browse-container{
+    color: black;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

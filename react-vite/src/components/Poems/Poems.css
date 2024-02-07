@@ -8,7 +8,104 @@
     cursor: pointer;
 }
 
+#poem-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: cadetblue;
+}
 
-.comment-content-container {
-    margin: red solid 2px;
+#poem-title{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    font-weight: bold;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+#poem-author{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#poem-contents {
+    border: 1px solid cadetblue;
+    width: 50%;
+    padding: 1%;
+    margin: 1%;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+}
+
+.poem-update {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.line {
+    font-size: 14px;
+}
+
+.comment-content-container{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.comment-content {
+    border: black solid 1px;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+    background-color: white;
+    font-size: small;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.comments-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.comment-update {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#comment-count{
+    border: 1px cadetblue solid;
+    border-radius: 2px;
+    background-color: white;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+}
+
+#confirm-delete-modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 8px;
+    margin: 1px solid black;
+    width: 500px;
+    height: 300px;
+    background-color: cadetblue;
+}
+
+#confirm-delete-button{
+    background-color: red;
+    padding: 5px;
+}
+
+#confirm-delete-cancel{
+    background-color: white;
+    padding: 5px;
 }
