@@ -36,3 +36,11 @@
 .poem-titles {
     cursor: pointer;
 }
+
+.poem-author {
+    cursor: pointer;
+}
+
+.content {
+    cursor: pointer;
+}
