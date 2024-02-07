@@ -29,7 +29,7 @@ function UpdateAuthorFormModal({ defaultName, defaultBiography }) {
           <input
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="textarea"
+            className="text"
             placeholder={name}
             required
           />
