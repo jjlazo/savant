@@ -62,7 +62,7 @@ function AuthorDetail() {
                         <div id="confirm-delete-modal">
                             <h2 id="form-label">Confirm Delete</h2>
                             <span>Are you sure you want to remove this Author?</span>
-                            <button id='confirm-delete-button' type='button' onClick={() => deleteAuthor()}>Yes</button>
+                            <button id='confirm-delete-button' type='button' onClick={(e) => deleteAuthor(e, authorId)}>Yes</button>
                             <button id='confirm-delete-cancel' type='button' onClick={closeModal}>No </button>
                         </div>
                     )}

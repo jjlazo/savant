@@ -36,7 +36,8 @@ function AllPoems() {
     }
 
     return (
-        <>
+        <div id="all-poems-container">
+            <h3 id="all-poems-header">Poems</h3>
             {
                 data?.map((poem) => (
                     <div key={poem.id} onClick={() => navigate(`/poems/${poem.id}`)} className="content">
@@ -45,8 +46,9 @@ function AllPoems() {
                                 <div className="poem-header">
                                     <div className="poem-title">{poem?.title}</div>
                                 </div>
+                                <br/>
                                 <div onClick={(e) => navigateToAuthor(e, poem.author_id)} className="poem-author">
-                                    <b>{authorName(poem.author_id)}</b>
+                                    <b>by {authorName(poem.author_id)}</b>
                                 </div>
                             </div>
                         </div>
@@ -59,7 +61,7 @@ function AllPoems() {
                     <div className="no-poem-text"><b>No poems found!</b></div>
                 </div>
             }
-        </>
+        </div>
     )
 }
 

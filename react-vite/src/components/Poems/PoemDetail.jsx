@@ -27,7 +27,7 @@ function PoemDetail() {
 
     let commentData = Object.values(comments)
 
-    const deletePost = (e) => {
+    const deletePoem = (e) => {
         e.preventDefault()
         dispatch(poemActions.fetchDeletePoem(poemId))
         closeModal()
@@ -81,7 +81,7 @@ function PoemDetail() {
                                 <div id="confirm-delete-modal">
                                     <h2 id="form-label">Confirm Delete</h2>
                                     <span>Are you sure you want to remove this poem?</span>
-                                    <button id='confirm-delete-button' type='button' onClick={deletePost}>Yes</button>
+                                    <button id='confirm-delete-button' type='button' onClick={(e)=> deletePoem(e, poemId)}>Yes</button>
                                     <button id='confirm-delete-cancel' type='button' onClick={closeModal}>No </button>
                                 </div>
                             )}
