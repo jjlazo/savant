@@ -2,15 +2,20 @@ import React, { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import * as poemActions from '../../redux/poems'
+import * as bookmarkActions from '../../redux/bookmarks'
 import bookwormError from '../../../public/boooookworm.png';
+import bookmarkFilled from '../../../public/bookmark-filled.png'
+import bookmarkTransparent from '../../../public/bookmark-transparent.png'
 import "./Feed.css"
 
 function Feed({ data }) {
     const navigate = useNavigate()
     let authors = useSelector(state => state.authors)
     const dispatch = useDispatch()
-
+    const sessionUser = useSelector(state => state.session.user)
     let authorArr = Object.values(authors)
+    let bookmarks = useSelector(state => state.bookmarks)
+    let bookmarkArray = Object.values(bookmarks)
 
     const navigateToAuthor = (e, author_id) => {
         e.stopPropagation()
@@ -25,19 +30,36 @@ function Feed({ data }) {
         })
     }
 
+    const bookmarkedPoem = (poemId) => {
+        const userBookmarks = bookmarkArray?.map(poem => poem.id)
+        console.log(userBookmarks)
+        if (userBookmarks.includes(poemId)) return true;
+        return false
+    }
+
     // useEffect(() => {
     //     dispatch(poemActions.fetchPoems())
     // }, [dispatch])
+
+    const handleBookmarking = (e, poemId) => {
+        if (bookmarkedPoem(poemId)) {
+            dispatch(bookmarkActions.fetchDeleteBookmark(poemId))
+        } else {
+            dispatch(bookmarkActions.fetchCreateBookmark(poemId))
+        }
+    }
+
 
     return (
         <>
             {
                 data.map((poem) => (
-                    <div key={poem.id} onClick={() => navigate(`/poems/${poem.id}`)} className="content">
+                    <div key={poem.id} className="content">
                         <div className="poem-bubble">
                             <div>
                                 <div className="poem-header">
-                                    <div className="poem-title">{poem.title}</div>
+                                    <div className="poem-title" onClick={() => navigate(`/poems/${poem.id}`)}>{poem.title}</div>
+                                    {sessionUser ? (<img src={bookmarkedPoem(poem.id) ? bookmarkFilled : bookmarkTransparent} onClick={(e)=> handleBookmarking(e, poem.id)} alt="bookmark-transparent" className="bookmark-transparent" />) : null}
                                 </div>
                                 <div onClick={(e) => navigateToAuthor(e, poem.author_id)} className="poem-author">
                                     <b>{authorName(poem.author_id)}</b>
