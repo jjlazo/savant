@@ -1,13 +1,14 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-import { BookMarked, BookPlus, BookUserIcon } from "lucide-react";
+import { BookMarked, BookPlus, BookUserIcon, UserCog } from "lucide-react";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import AuthorFormModal from "../ModalForms/CreateAuthorModal";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import PoemFormModal from "../ModalForms/CreatePoemModal";
 import OpenModalButton from "../OpenModalButton";
+// import UserHome from "../UserHome/UserHome";
 
 function Navigation() {
   const [showMenu, setShowMenu] = useState(false);
@@ -61,6 +62,11 @@ function Navigation() {
         <li className="list-items">
           <button className="nav-button" onClick={() => navigate(`/users/${user?.id}/bookmarks`)}>
           {<BookMarked/>}
+          </button>
+        </li>
+        <li className="list-items">
+          <button className="nav-button" onClick={() => navigate(`/users/${user?.id}/home`)}>
+          {<UserCog/>}
           </button>
         </li>
       </ul>) : null}

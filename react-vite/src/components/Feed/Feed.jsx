@@ -32,7 +32,6 @@ function Feed({ data }) {
 
     const bookmarkedPoem = (poemId) => {
         const userBookmarks = bookmarkArray?.map(poem => poem.id)
-        console.log(userBookmarks)
         if (userBookmarks.includes(poemId)) return true;
         return false
     }
