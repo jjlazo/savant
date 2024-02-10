@@ -52,7 +52,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        <p className="error-message">{errors.email && errors.email}</p>
+        <p className="error-message">{errors.email && errors.email + " "}</p>
         <label className="su-label">
           Username
           <input
