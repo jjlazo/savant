@@ -65,6 +65,7 @@
     margin: 10px;
     background-color: white;
     font-size: small;
+    word-wrap: break-word;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
@@ -109,4 +110,20 @@
 #confirm-delete-cancel{
     background-color: white;
     padding: 5px;
+}
+
+#all-poems-header{
+    border: 1px solid black;
+    padding: 8px;
+    margin: 5px;
+    background-color: white;
+    width: fit-content;
+}
+
+#all-poems-container{
+    background-color: cadetblue;
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
 }

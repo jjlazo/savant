@@ -67,10 +67,10 @@ export const fetchCreatePoem = (poem) => async dispatch => {
   if (response.ok) {
     const poem = await response.json()
     dispatch(createPoem(poem))
-    return poem
+    return {ok: response.ok, ...poem}
   } else {
     const errors = await response.json()
-    return errors
+    return {ok: response.ok, errors}
   }
 }
 
@@ -124,7 +124,7 @@ export const getPoemsByAuthorId = (authorId) => async dispatch => {
 const poemsReducer = (state = {}, action) => {
   switch (action.type) {
     case READ_POEMS: {
-      const poemsState = {};
+      const poemsState = { ...state };
       if (action.poems.Poems.length) {
         action.poems.Poems.forEach((poem) => {
           poemsState[poem.id] = poem;
@@ -133,7 +133,7 @@ const poemsReducer = (state = {}, action) => {
       return poemsState;
     }
     case READ_POEM: {
-      const poemsState = {};
+      const poemsState = { ...state };
       const poem = action.poem.Poem
       poemsState[poem.id] = poem
       return poemsState;

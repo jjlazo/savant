@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as poemActions from '../../redux/poems'
 import * as authorActions from '../../redux/authors'
 import bookwormError from '../../../public/boooookworm.png';
+import './Authors.css'
 
 function AllAuthors() {
     const navigate = useNavigate()
-    let authors = useSelector(state => state.authors)
     const dispatch = useDispatch()
+    let authors = useSelector(authorActions.selectAllAuthors)
     let poems = useSelector(state => state.poems)
 
     let data = Object.values(poems)
@@ -22,33 +23,36 @@ function AllAuthors() {
         dispatch(authorActions.fetchAuthors())
     }, [dispatch])
 
-    const navigateToAuthor = (e, author_id) => {
-        e.stopPropagation()
-        navigate(`/authors/${author_id}`)
-    }
+    // const navigateToAuthor = (e, author_id) => {
+    //     e.stopPropagation()
+    //     navigate(`/authors/${author_id}`)
+    // }
 
-    const authorName = (id) => {
-        return authorArr.map(author => {
-            if (author.id === id) {
-                return author.name
-            }
-        })
-    }
+    // const authorName = (id) => {
+    //     return authorArr.map(author => {
+    //         if (author.id === id) {
+    //             return author.name
+    //         }
+    //     })
+    // }
 
     return (
-        <>
+        <div id="all-authors-container">
+            <h3 id="authors-header">
+            All Authors
+            </h3>
             {
-                data?.map((poem) => (
-                    <div key={poem.id} onClick={() => navigate(`/poems/${poem.id}`)} className="content">
+                authorArr?.map((author) => (
+                    <div key={author?.id} className="content">
+                        <b className="authors-list" onClick={() => navigate(`/authors/${author?.id}`)}>{author?.name}:</b>
                         <div className="poem-bubble">
-                            <div onClick={(e) => navigateToAuthor(e, poem.author_id)} className="poem-author">
-                                <b>{authorName(poem.author_id)}</b>
-                            </div>
-                            <div>
-                                <div className="poem-header">
-                                    <div className="poem-title">{poem?.title}</div>
+                            <br/>
+                            {data?.map(poem => (
+                                <div key={poem.id} className="poem-header">
+                                    <div className="poem-title" onClick={()=> navigate(`/poems/${poem?.id}`)}>{poem?.author_id == author.id && poem?.title}</div>
                                 </div>
-                            </div>
+                            )
+                            )}
                         </div>
                     </div>
                 ))
@@ -59,7 +63,7 @@ function AllAuthors() {
                     <div className="no-poem-text"><b>No poems found!</b></div>
                 </div>
             }
-        </>
+        </div>
     )
 }
 

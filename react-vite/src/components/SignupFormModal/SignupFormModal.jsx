@@ -38,10 +38,12 @@ function SignupFormModal() {
     }
   };
 
+  const renderErrors = (errors = []) => errors.map(e => <p key={e} className="error-message">{e}</p>);
+
   return (
     <div id="outer-form-container-su">
       <h1 id='sign-up-label'>Sign Up</h1>
-      <p className="error-message">{errors.server && errors.server}</p>
+      <div className="error-messages">{renderErrors(errors.server)}</div>
       <form onSubmit={handleSubmit}>
         <label className="su-label">
           Email
@@ -52,7 +54,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        <p className="error-message">{errors.email && errors.email}</p>
+        <div className="error-messages">{renderErrors(errors.email)}</div>
         <label className="su-label">
           Username
           <input
@@ -62,7 +64,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        <p className="error-message">{errors.username && errors.username}</p>
+        <div className="error-messages">{renderErrors(errors.username)}</div>
         <label className="su-label">
           Password
           <input
@@ -72,7 +74,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        <p className="error-message">{errors.password && errors.password}</p>
+        <div className="error-messages">{renderErrors(errors.password)}</div>
         <label className="su-label">
           Confirm Password
           <input
@@ -82,7 +84,7 @@ function SignupFormModal() {
             required
           />
         </label>
-        <p className="error-message">{errors.confirmPassword && errors.confirmPassword}</p>
+        <div className="error-messages">{renderErrors(errors.confirmPassword)}</div>
         <button type="submit" id="su-button">Sign Up</button>
       </form>
     </div>

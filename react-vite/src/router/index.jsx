@@ -9,6 +9,7 @@ import AuthorDetail from '../components/Authors/AuthorDetail.jsx';
 import SplashPage from '../components/SplashPage/SplashPage';
 import AllPoems from '../components/Poems/AllPoems';
 import AllAuthors from '../components/Authors/AllAuthors.jsx';
+import UserHome from '../components/UserHome/UserHome.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -18,13 +19,17 @@ export const router = createBrowserRouter([
         path: "/",
         element: <SplashPage />,
       },
+      // {
+      //   path: "login",
+      //   element: <LoginFormPage />,
+      // },
+      // {
+      //   path: "signup",
+      //   element: <SignupFormPage />,
+      // },
       {
-        path: "login",
-        element: <LoginFormPage />,
-      },
-      {
-        path: "signup",
-        element: <SignupFormPage />,
+        path: "/users/:userId/home",
+        element: <UserHome />,
       },
       {
         path: "/poems",

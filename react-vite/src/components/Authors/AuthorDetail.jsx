@@ -12,7 +12,6 @@ import { useModal } from "../../context/Modal";
 import './Authors.css'
 
 
-
 function AuthorDetail() {
     const navigate = useNavigate()
     const { authorId } = useParams()
@@ -22,7 +21,7 @@ function AuthorDetail() {
     const { closeModal } = useModal();
     const poems = useSelector(state => state.poems)
     let poemData = Object.values(poems)
-    const author = useSelector(state => state.authors)
+    const author = useSelector(authorActions.selectAllAuthors)
 
     useEffect(() => {
         dispatch(poemActions.getPoemsByAuthorId(authorId))
@@ -62,20 +61,20 @@ function AuthorDetail() {
                         <div id="confirm-delete-modal">
                             <h2 id="form-label">Confirm Delete</h2>
                             <span>Are you sure you want to remove this Author?</span>
-                            <button id='confirm-delete-button' type='button' onClick={() => deleteAuthor()}>Yes</button>
+                            <button id='confirm-delete-button' type='button' onClick={(e) => deleteAuthor(e, authorId)}>Yes</button>
                             <button id='confirm-delete-cancel' type='button' onClick={closeModal}>No </button>
                         </div>
                     )}
                 />}
                 {sessionUser?.id == author[authorId]?.posted_by && <OpenModalButton
                     onButtonClick={closeMenu}
-                    modalComponent={<UpdateAuthorFormModal defaultName={author[authorId]?.name} defaultBiography={author[authorId]?.biography} />}
+                    modalComponent={<UpdateAuthorFormModal authorId={authorId} defaultName={author[authorId]?.name} defaultBiography={author[authorId]?.biography} />}
                     buttonText={<PencilLine strokeWidth={"2.05px"} className="update-icon" />}
                 />}
             </div>
             {<p id="author-bio">{author[authorId]?.biography}</p>}
             <p id="browse-tag">Browse our Collection:</p>
-            {poemData.map(poem => (<h4 key={poem.id} onClick={() => navigate(`/poems/${poem.id}`)} className="poem-titles">{poem?.author_id == authorId && poem?.title}</h4>))}
+            {poemData.filter(poem => poem.author_id == authorId).map(poem => (<h4 key={poem.id} onClick={() => navigate(`/poems/${poem.id}`)} className="poem-titles">{poem.title}</h4>))}
         </div>
     )
 }

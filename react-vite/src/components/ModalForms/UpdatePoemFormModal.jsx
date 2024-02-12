@@ -16,7 +16,7 @@ function UpdatePoemFormModal({ defaultTitle, defaultBody, defaultAuthor, default
     const { closeModal } = useModal();
     // const [errors, setErrors] = useState({});
     const curr_user = useSelector(state => state.session.user)
-    let authors = useSelector(state => state.authors)
+    let authors = useSelector(authorActions.selectAllAuthors)
     let authorArr = Object.values(authors)
     const currentYear = new Date().getFullYear();
     const years = Array.from(new Array(currentYear + 1),(val, index) => index);
