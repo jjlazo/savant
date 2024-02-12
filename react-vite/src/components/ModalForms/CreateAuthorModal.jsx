@@ -21,7 +21,6 @@ function AuthorFormModal({ onSuccess }) {
       biography,
       'posted_by': curr_user.id
     }))
-    // closeModal(response.id)
     closeModal()
     onSuccess(response.id)
   }

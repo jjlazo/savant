@@ -48,11 +48,9 @@ function AllAuthors() {
                         <div className="poem-bubble">
                             <br/>
                             {data?.map(poem => (
-                                <>
-                                    <div className="poem-header">
-                                        <div className="poem-title" onClick={()=> navigate(`/poems/${poem?.id}`)}>{poem?.author_id == author.id && poem?.title}</div>
-                                    </div>
-                                </>
+                                <div key={poem.id} className="poem-header">
+                                    <div className="poem-title" onClick={()=> navigate(`/poems/${poem?.id}`)}>{poem?.author_id == author.id && poem?.title}</div>
+                                </div>
                             )
                             )}
                         </div>

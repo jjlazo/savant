@@ -1,25 +1,39 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-import { BookMarked, BookPlus, BookUserIcon, UserCog } from "lucide-react";
+import { BookMarked, BookPlus, BookUserIcon, Regex, UserCog } from "lucide-react";
 // import OpenModalMenuItem from "./OpenModalMenuItem";
 import AuthorFormModal from "../ModalForms/CreateAuthorModal";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import PoemFormModal from "../ModalForms/CreatePoemModal";
 import OpenModalButton from "../OpenModalButton";
+import { selectAllAuthors } from "../../redux/authors";
+import { useModal } from "../../context/Modal";
 // import UserHome from "../UserHome/UserHome";
 
 function Navigation() {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate()
   const user = useSelector((store) => store.session.user);
+  const allAuthors = useSelector(state => Object.values(selectAllAuthors(state) || {}));
+  const allPoems = useSelector(state => Object.values(state.poems || {}));
   const ulRef = useRef();
+  const { closeModal } = useModal();
 
-  const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
-    setShowMenu(!showMenu);
-  };
+  const [searchString, setSearchString] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const updateSearchResults = (e) => {
+    const authors = allAuthors.filter(a => new RegExp(`${searchString}`, 'i').test(a.name)).map(a => ({ ...a, type: "AUTHOR" }));
+    const poems = allPoems.filter(p => new RegExp(`${searchString}`, 'i').test(p.title)).map(a => ({ ...a, type: "POEM" }));
+
+    setSearchResults(authors.concat(poems));
+  }
+
+  useEffect(() => {
+    updateSearchResults();
+  }, [searchString, allPoems, allAuthors, updateSearchResults]);
 
   useEffect(() => {
     if (!showMenu) return;
@@ -32,23 +46,30 @@ function Navigation() {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  const resultsRef = useRef(null);
+
   const closeMenu = () => setShowMenu(false);
 
+  const resetSearch = () => {
+    setSearchString("");
+    setSearchResults([]);
+    closeModal();
+  }
+
   return (
+    <>
     <ul id="nav-bar">
       <li className="list-items">
         <NavLink to="/"><img id='logo' src="https://i.ibb.co/pwtwzvr/savworm.png" /></NavLink>
       </li>
       <li className="list-items">
-        <input placeholder="Search by Author or Poem. . . " id="search-bar"  /* onClick={() => alert("feature coming soon")} */></input>
-        {/* <input placeholder="Search by Author or Poem. . . " id="search-bar"></input> */}
+        <input placeholder="Search by Author or Poem. . . " id="search-bar" value={searchString} onChange={e => setSearchString(e.target.value)}></input>
       </li>
       {user ? (<ul id="user-buttons">
         <li className="list-items">
           <OpenModalButton
             buttonText={<BookUserIcon />}
             onButtonClick={closeMenu}
-            // onModalClose={}
             modalComponent={<AuthorFormModal onSuccess={(authorId) => navigate(`/authors/${authorId}`)} />}
             className="nav-button"
           />
@@ -76,6 +97,35 @@ function Navigation() {
         <ProfileButton />
       </li>
     </ul>
+    {(searchString.length >= 2 && searchResults.length) ? (
+      <>
+        <div id="search-results-background" onClick={resetSearch} />
+        <div id="search-results" ref={resultsRef}>
+          {searchResults.map(r => r.type === "POEM"
+            ? (
+                <div key={`${r.type}-${r.id}`} className="content">
+                  <div className="poem-bubble">
+                      <div>
+                          <div className="poem-header">
+                              <div onClick={() => {resetSearch(); navigate(`/poems/${r.id}`)}} className="poem-title">{r?.title}</div>
+                          </div>
+                          <br/>
+                          <div onClick={(e) => { resetSearch(); navigate(`/authors/${r.author_id}`)} } className="poem-author">
+                              <b>by {r?.author}</b>
+                          </div>
+                      </div>
+                  </div>
+                </div>
+            )
+            : (
+                <div key={`${r.type}-${r.id}`} className="content">
+                    <b className="authors-list" onClick={() => { resetSearch(); navigate(`/authors/${r?.id}`)} }>{r?.name}</b>
+                </div>
+            ))}
+        </div>
+      </>
+    ) : null}
+    </>
   );
 }
 

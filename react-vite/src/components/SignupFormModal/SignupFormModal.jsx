@@ -31,8 +31,6 @@ function SignupFormModal() {
       })
     );
 
-    debugger
-
     if (serverResponse) {
       setErrors(serverResponse);
     } else {

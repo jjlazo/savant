@@ -121,12 +121,12 @@ export const fetchDeleteAuthor = (authorId) => async dispatch => {
 const authorsReducer = (state = { currentAuthor: null, allAuthors: {} }, action) => {
   switch (action.type) {
     case SET_CURRENT_AUTHOR: {
-      const newState = { ...state };
+      const newState = { ...state, allAuthors: { ... state.allAuthors } };
       newState.currentAuthor = action.author;
       return newState;
     }
     case READ_AUTHORS: {
-      const authorsState = state;
+      const authorsState = { ...state, allAuthors: { ... state.allAuthors } };
       if (action.authors.Authors.length) {
         action.authors.Authors.forEach((author) => {
           authorsState.allAuthors[author.id] = author;
@@ -135,7 +135,7 @@ const authorsReducer = (state = { currentAuthor: null, allAuthors: {} }, action)
       return authorsState;
     }
     case READ_AUTHOR: {
-      const authorsState = state;
+      const authorsState = { ...state, allAuthors: { ... state.allAuthors } };
       const author = action.author.Author
       authorsState.allAuthors[author.id] = author
       return authorsState;

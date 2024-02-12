@@ -74,7 +74,7 @@ function AuthorDetail() {
             </div>
             {<p id="author-bio">{author[authorId]?.biography}</p>}
             <p id="browse-tag">Browse our Collection:</p>
-            {poemData.map(poem => (<h4 key={poem.id} onClick={() => navigate(`/poems/${poem.id}`)} className="poem-titles">{poem?.author_id == authorId && poem?.title}</h4>))}
+            {poemData.filter(poem => poem.author_id == authorId).map(poem => (<h4 key={poem.id} onClick={() => navigate(`/poems/${poem.id}`)} className="poem-titles">{poem.title}</h4>))}
         </div>
     )
 }
