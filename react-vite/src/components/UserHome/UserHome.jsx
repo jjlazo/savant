@@ -18,12 +18,17 @@ function UserHome() {
     const [showMenu, setShowMenu] = useState(false);
     const sessionUser = useSelector((state) => state.session.user)
     let poems = useSelector(state => state.poems)
-    let authors = useSelector(state => state.authors)
+    let authors = useSelector(authorActions.selectAllAuthors)
+
     const authorArr = Object.values(authors)
     const poemArr = Object.values(poems)
 
-    const authored_by = authorArr?.map(author => author?.posted_by === sessionUser?.id && author)
-    const poem_by = poemArr?.map(poem => poem?.posted_by == sessionUser?.id && poem)
+    const authored_by = authorArr?.filter(author => author?.posted_by === sessionUser?.id);
+    const poem_by = poemArr?.filter(poem => poem?.posted_by == sessionUser?.id);
+
+    console.log({authors, authorArr, authored_by})
+    window.authors = authors;
+
 
     const toggleMenu = (e) => {
         e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -46,16 +51,20 @@ function UserHome() {
         navigate('/');
     }
 
+    // useEffect(() => {
+    //     dispatch(authorActions.fetchAuthors())
+    // }, []);
     useEffect(() => {
         async function wrapperFn() {
             const response = await dispatch(authorActions.fetchAuthors())
             if (response?.errors) {
+                console.log("errors detected")
                 navigate('/errors', { state: { "statusCode": 404, "message": response.errors.message } })
             }
         }
 
         wrapperFn()
-    }, [])
+    }, []);
 
     useEffect(() => {
         async function wrapperFn() {
@@ -78,7 +87,6 @@ function UserHome() {
         e.preventDefault()
         dispatch(poemActions.fetchDeletePoem(poemId))
         closeModal()
-        navigate(`/`)
     }
 
     return (
@@ -105,7 +113,7 @@ function UserHome() {
                                 />
                                 <OpenModalButton
                                     onButtonClick={closeMenu}
-                                    modalComponent={<UpdateAuthorFormModal defaultName={author?.name} defaultBiography={author?.biography} />}
+                                    modalComponent={<UpdateAuthorFormModal authorId={author?.id}  defaultName={author?.name} defaultBiography={author?.biography} />}
                                     buttonText={<PencilLine strokeWidth={"2.05px"} className="update-icon" />}
                                 />
                             </>)

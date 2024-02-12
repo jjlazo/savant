@@ -25,6 +25,7 @@
   width: 200px;
   height: 25px;
   padding: 3px;
+  cursor: not-allowed;
 }
 
 #user-buttons {

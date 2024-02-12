@@ -5,24 +5,33 @@ import { useNavigate } from "react-router-dom";
 import * as poemActions from '../../redux/poems.js'
 import * as authorActions from '../../redux/authors.js'
 import "./FormModals.css";
+import AuthorFormModal from "./CreateAuthorModal.jsx";
 
 function PoemFormModal() {
   const dispatch = useDispatch();
   const navigate = useNavigate()
 
+  const { pushModalContent } = useModal();
+
   const currentYear = new Date().getFullYear();
   const curr_user = useSelector(state => state.session.user)
-  let authors = useSelector(state => state.authors)
+  let authors = useSelector(authorActions.selectAllAuthors)
+  const currentAuthorId = useSelector(authorActions.selectCurrentAuthor);
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
-  const [author, setAuthor] = useState(1);
+  const [author, setAuthor] = useState(currentAuthorId);
+
   const [yearPublished, setYearPublished] = useState(currentYear);
-  // const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
   useEffect(() => {
     dispatch(authorActions.fetchAuthors())
+
+    return () => {
+      dispatch(authorActions.setCurrentAuthor(1));
+    }
 }, [dispatch])
 
   let authorArr = Object.values(authors)
@@ -39,13 +48,15 @@ function PoemFormModal() {
       "posted_by": curr_user.id,
       "year_published": yearPublished
     }))
-    closeModal()
-    navigate(`/poems/${response.id}`)
+    if (response.ok) {
+      closeModal()
+      navigate(`/poems/${response.id}`)
+    } else {
+      setErrors(response.errors);
+    }
   }
 
-  // const CreateAuthorPrompt = () => {
-
-  // }
+  const renderErrors = (errors = []) => errors.map(e => <p key={e} className="error-message">{e}</p>);
 
   return (
     <>
@@ -61,10 +72,17 @@ function PoemFormModal() {
             required
           />
         </label>
+        <div className="error-messages">{renderErrors(errors.title)}</div>
         <label className="su-label">
           <select
             value={author}
-            onChange={(e) => setAuthor(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value === "Not Listed") {
+                pushModalContent({ component: <AuthorFormModal onSuccess={newAuthorId => { dispatch(authorActions.setCurrentAuthor(newAuthorId)) }} /> });
+              } else {
+                setAuthor(e.target.value);
+              }
+            }}
             className="select"
             placeholder="Author"
             required
@@ -96,6 +114,7 @@ function PoemFormModal() {
             required
           />
         </label>
+        <div className="error-messages">{renderErrors(errors.body)}</div>
         <button className="button" type="submit">create</button>
       </form>
     </>

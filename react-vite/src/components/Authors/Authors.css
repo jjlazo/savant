@@ -39,10 +39,7 @@
 
 .poem-author {
     cursor: pointer;
-}
-
-.content {
-    cursor: pointer;
+    width: fit-content;
 }
 
 #all-authors-container{

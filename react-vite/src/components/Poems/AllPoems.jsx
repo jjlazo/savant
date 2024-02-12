@@ -7,7 +7,7 @@ import bookwormError from '../../../public/boooookworm.png';
 
 function AllPoems() {
     const navigate = useNavigate()
-    let authors = useSelector(state => state.authors)
+    let authors = useSelector(authorActions.selectAllAuthors)
     const dispatch = useDispatch()
     let poems = useSelector(state => state.poems)
 
@@ -40,11 +40,11 @@ function AllPoems() {
             <h3 id="all-poems-header">Poems</h3>
             {
                 data?.map((poem) => (
-                    <div key={poem.id} onClick={() => navigate(`/poems/${poem.id}`)} className="content">
+                    <div key={poem.id} className="content">
                         <div className="poem-bubble">
                             <div>
                                 <div className="poem-header">
-                                    <div className="poem-title">{poem?.title}</div>
+                                    <div onClick={() => navigate(`/poems/${poem.id}`)} className="poem-title">{poem?.title}</div>
                                 </div>
                                 <br/>
                                 <div onClick={(e) => navigateToAuthor(e, poem.author_id)} className="poem-author">

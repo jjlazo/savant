@@ -3,11 +3,21 @@ export const READ_AUTHORS = 'Authors/READ_AUTHORS';
 export const READ_AUTHOR = 'Authors/READ_AUTHOR';
 export const UPDATE_AUTHOR = 'Authors/UPDATE_AUTHOR';
 export const DELETE_AUTHOR = 'Authors/DELETE_AUTHOR';
+export const SET_CURRENT_AUTHOR = 'Authors/SET_CURRENT_AUTHOR';
+
+export const selectCurrentAuthor = state => state.authors.currentAuthor || 1;
+
+export const selectAllAuthors = state => state.authors.allAuthors;
 
 export const readAuthors = (authors) => ({
   type: READ_AUTHORS,
   authors
 });
+
+export const setCurrentAuthor = (author) => ({
+  type: SET_CURRENT_AUTHOR,
+  author
+})
 
 export const readAuthor = (author) => ({
   type: READ_AUTHOR,
@@ -108,30 +118,35 @@ export const fetchDeleteAuthor = (authorId) => async dispatch => {
   }
 }
 
-const authorsReducer = (state = {}, action) => {
+const authorsReducer = (state = { currentAuthor: null, allAuthors: {} }, action) => {
   switch (action.type) {
+    case SET_CURRENT_AUTHOR: {
+      const newState = { ...state };
+      newState.currentAuthor = action.author;
+      return newState;
+    }
     case READ_AUTHORS: {
-      const authorsState = {};
+      const authorsState = state;
       if (action.authors.Authors.length) {
         action.authors.Authors.forEach((author) => {
-          authorsState[author.id] = author;
+          authorsState.allAuthors[author.id] = author;
         });
       }
       return authorsState;
     }
     case READ_AUTHOR: {
-      const authorsState = {};
+      const authorsState = state;
       const author = action.author.Author
-      authorsState[author.id] = author
+      authorsState.allAuthors[author.id] = author
       return authorsState;
     }
     case CREATE_AUTHOR:
-      return { ...state, [action.author.id]: action.author };
+      return { ...state, allAuthors: { ...state.allAuthors, [action.author.id]: action.author } };
     case UPDATE_AUTHOR:
-      return { ...state, [action.author.id]: action.author };
+      return { ...state, allAuthors: { ...state.allAuthors, [action.author.id]: action.author } };
     case DELETE_AUTHOR: {
-      const newState = { ...state };
-      delete newState[action.authorId];
+      const newState = { ...state, allAuthors: { ...state.allAuthors } };
+      delete newState.allAuthors[action.authorId];
       return newState;
     }
     default:

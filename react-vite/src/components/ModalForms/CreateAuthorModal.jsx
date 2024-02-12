@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import * as authorActions from '../../redux/authors'
 import './FormModals.css'
 
-function AuthorFormModal() {
+function AuthorFormModal({ onSuccess }) {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const [name, setName] = useState("");
@@ -21,8 +21,9 @@ function AuthorFormModal() {
       biography,
       'posted_by': curr_user.id
     }))
+    // closeModal(response.id)
     closeModal()
-    navigate(`/authors/${response.id}`)
+    onSuccess(response.id)
   }
 
   return (

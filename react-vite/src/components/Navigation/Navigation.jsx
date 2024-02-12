@@ -40,14 +40,16 @@ function Navigation() {
         <NavLink to="/"><img id='logo' src="https://i.ibb.co/pwtwzvr/savworm.png" /></NavLink>
       </li>
       <li className="list-items">
-        <input placeholder="Search by Author or Poem. . . " id="search-bar" onClick={() => alert("feature coming soon")}></input>
+        <input placeholder="Search by Author or Poem. . . " id="search-bar"  /* onClick={() => alert("feature coming soon")} */></input>
+        {/* <input placeholder="Search by Author or Poem. . . " id="search-bar"></input> */}
       </li>
       {user ? (<ul id="user-buttons">
         <li className="list-items">
           <OpenModalButton
             buttonText={<BookUserIcon />}
             onButtonClick={closeMenu}
-            modalComponent={<AuthorFormModal />}
+            // onModalClose={}
+            modalComponent={<AuthorFormModal onSuccess={(authorId) => navigate(`/authors/${authorId}`)} />}
             className="nav-button"
           />
         </li>

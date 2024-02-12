@@ -12,7 +12,6 @@ import { useModal } from "../../context/Modal";
 import './Authors.css'
 
 
-
 function AuthorDetail() {
     const navigate = useNavigate()
     const { authorId } = useParams()
@@ -22,7 +21,7 @@ function AuthorDetail() {
     const { closeModal } = useModal();
     const poems = useSelector(state => state.poems)
     let poemData = Object.values(poems)
-    const author = useSelector(state => state.authors)
+    const author = useSelector(authorActions.selectAllAuthors)
 
     useEffect(() => {
         dispatch(poemActions.getPoemsByAuthorId(authorId))
@@ -69,7 +68,7 @@ function AuthorDetail() {
                 />}
                 {sessionUser?.id == author[authorId]?.posted_by && <OpenModalButton
                     onButtonClick={closeMenu}
-                    modalComponent={<UpdateAuthorFormModal defaultName={author[authorId]?.name} defaultBiography={author[authorId]?.biography} />}
+                    modalComponent={<UpdateAuthorFormModal authorId={authorId} defaultName={author[authorId]?.name} defaultBiography={author[authorId]?.biography} />}
                     buttonText={<PencilLine strokeWidth={"2.05px"} className="update-icon" />}
                 />}
             </div>

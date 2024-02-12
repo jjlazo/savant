@@ -25,6 +25,8 @@
 
 .poem-title {
     font-weight: bold;
+    width: fit-content;
+    cursor: pointer;
 }
 
 .book-worm {

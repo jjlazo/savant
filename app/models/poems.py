@@ -16,7 +16,7 @@ class Poem(db.Model):
     posted_by = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
     author = db.relationship("Author", back_populates="poems")
-    comments = db.relationship("Comment", back_populates="poem")
+    comments = db.relationship("Comment", back_populates="poem", cascade="all,delete")
     bookmarked_by = db.relationship("User", secondary="bookmarks", back_populates="bookmarks")
     annotations = db.relationship("Annotation", back_populates="poem")
 

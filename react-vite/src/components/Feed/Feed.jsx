@@ -7,10 +7,11 @@ import bookwormError from '../../../public/boooookworm.png';
 import bookmarkFilled from '../../../public/bookmark-filled.png'
 import bookmarkTransparent from '../../../public/bookmark-transparent.png'
 import "./Feed.css"
+import { selectAllAuthors } from "../../redux/authors";
 
 function Feed({ data }) {
     const navigate = useNavigate()
-    let authors = useSelector(state => state.authors)
+    let authors = useSelector(selectAllAuthors)
     const dispatch = useDispatch()
     const sessionUser = useSelector(state => state.session.user)
     let authorArr = Object.values(authors)
@@ -35,10 +36,6 @@ function Feed({ data }) {
         if (userBookmarks.includes(poemId)) return true;
         return false
     }
-
-    // useEffect(() => {
-    //     dispatch(poemActions.fetchPoems())
-    // }, [dispatch])
 
     const handleBookmarking = (e, poemId) => {
         if (bookmarkedPoem(poemId)) {

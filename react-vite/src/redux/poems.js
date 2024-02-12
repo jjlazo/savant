@@ -67,10 +67,10 @@ export const fetchCreatePoem = (poem) => async dispatch => {
   if (response.ok) {
     const poem = await response.json()
     dispatch(createPoem(poem))
-    return poem
+    return {ok: response.ok, ...poem}
   } else {
     const errors = await response.json()
-    return errors
+    return {ok: response.ok, errors}
   }
 }
 

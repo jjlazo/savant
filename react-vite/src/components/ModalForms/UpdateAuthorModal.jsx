@@ -5,16 +5,15 @@ import * as authorActions from '../../redux/authors'
 import { useParams } from "react-router-dom";
 import "./FormModals.css";
 
-function UpdateAuthorFormModal({ defaultName, defaultBiography }) {
+function UpdateAuthorFormModal({ authorId, defaultName, defaultBiography }) {
   const dispatch = useDispatch();
   const [name, setName] = useState(defaultName);
   const [biography, setBiography] = useState(defaultBiography);
   const sessionUser = useSelector((state) => state.session.user);
-  const { authorId } = useParams();
   // const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  const updateAuthor = (e, authorId) => {
+  const updateAuthor = (e) => {
     e.preventDefault()
     dispatch(authorActions.fetchUpdateAuthor(authorId, {name, biography}))
     closeModal()

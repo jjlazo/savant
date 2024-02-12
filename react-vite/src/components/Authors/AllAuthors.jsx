@@ -9,7 +9,7 @@ import './Authors.css'
 function AllAuthors() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
-    let authors = useSelector(state => state.authors)
+    let authors = useSelector(authorActions.selectAllAuthors)
     let poems = useSelector(state => state.poems)
 
     let data = Object.values(poems)
