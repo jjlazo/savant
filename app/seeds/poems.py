@@ -18,8 +18,11 @@ def seed_poems():
         title='Spring is like a perhaps hand', body='III \n Spring is like a perhaps hand \n (which comes carefully \n out of Nowhere)arranging \n a window,into which people look(while \n people stare \n arranging and changing placing \n carefully there a strange \n thing and a known thing here)and \n changing everything carefully \n spring is like a perhaps \n Hand in a window \n (carefully to \n and fro moving New and \n Old things,while \n people stare carefully \n moving a perhaps \n fraction of flower here placing \n an inch of air there)and \n without breaking anything.', posted_by=1, author_id=7, year_published=1923, audio="none")
     shelley = Poem(
         title='To the Moon [Fragment]', body='Art thou pale for weariness \n Of climbing Heaven, and gazing on the earth, \n Wandering companionless \n Among the stars that have a different birth,— \n And ever changing, like a joyless eye \n That finds no object worth its constancy?', posted_by=1, author_id=8, year_published=1824, audio="none")
+    shakespeare2 = Poem(
+        title='Sonnet 18', body='Shall I compare thee to a summer’s day? \n Thou art more lovely and more temperate: \n Rough winds do shake the darling buds of May, \n And summer’s lease hath all too short a date; \n Sometime too hot the eye of heaven shines, \n And often is his gold complexion dimm\'d; \n And every fair from fair sometime declines, \n By chance or nature’s changing course untrimm\'d; \n But thy eternal summer shall not fade, \n Nor lose possession of that fair thou ow’st; \n Nor shall death brag thou wander’st in his shade, \n When in eternal lines to time thou grow’st: \n So long as men can breathe or eyes can see, \n So long lives this, and this gives life to thee.', posted_by=4, author_id=1, year_published=1609, audio="none")
 
     db.session.add(shakespeare)
+    db.session.add(shakespeare2)
     db.session.add(yeats)
     db.session.add(dickinson)
     db.session.add(whitman)

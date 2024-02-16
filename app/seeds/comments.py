@@ -37,6 +37,10 @@ def seed_comments():
         body='This is such a classic, adding it to my bookmarks.', user_id=5, poem_id=8)
     com17 = Comment(
         body='I adore this fragment', user_id=6, poem_id=8)
+    com18 = Comment(
+        body='This is my favorite sonnet!', user_id=3, poem_id=9)
+    com19 = Comment(
+        body='Thank you so much for sharing!', user_id=2, poem_id=9)
 
     db.session.add(com1)
     db.session.add(com2)
@@ -55,6 +59,8 @@ def seed_comments():
     db.session.add(com15)
     db.session.add(com16)
     db.session.add(com17)
+    db.session.add(com18)
+    db.session.add(com19)
     db.session.commit()
 
 

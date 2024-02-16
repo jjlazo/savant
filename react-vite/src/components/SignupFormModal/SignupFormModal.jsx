@@ -38,7 +38,7 @@ function SignupFormModal() {
     }
   };
 
-  const renderErrors = (errors = []) => errors.map(e => <p key={e} className="error-message">{e}</p>);
+  const renderErrors = (errors = []) => errors?.map(e => <p key={e} className="error-message">{e}</p>);
 
   return (
     <div id="outer-form-container-su">
