@@ -25,6 +25,7 @@ function Navigation() {
   const [searchResults, setSearchResults] = useState([]);
 
   const updateSearchResults = (e) => {
+    // i === case insensitive :)
     const authors = allAuthors.filter(a => new RegExp(`${searchString}`, 'i').test(a.name)).map(a => ({ ...a, type: "AUTHOR" }));
     const poems = allPoems.filter(p => new RegExp(`${searchString}`, 'i').test(p.title)).map(a => ({ ...a, type: "POEM" }));
 
