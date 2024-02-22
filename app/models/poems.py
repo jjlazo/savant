@@ -15,8 +15,8 @@ class Poem(db.Model):
     year_published = db.Column(db.Integer, nullable=False)
     posted_by = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
 
-    author = db.relationship("Author", secondary="authored_poems", back_populates="poems")
-    comments = db.relationship("Comment", back_populates="poem")
+    author = db.relationship("Author", back_populates="poems")
+    comments = db.relationship("Comment", back_populates="poem", cascade="all,delete")
     bookmarked_by = db.relationship("User", secondary="bookmarks", back_populates="bookmarks")
     annotations = db.relationship("Annotation", back_populates="poem")
 
@@ -28,9 +28,9 @@ class Poem(db.Model):
             'posted_by': self.posted_by,
             'year_published': self.year_published,
             'audio': self.audio,
+            'author_id': self.author_id,
             'author': self.author.name,
-            'author_bio': self.author.biography,
-            'bookmarked_by': [user.id for user in self.bookmarked_by],
-            'annotations': [note for note in self.annotations],
-            'comments': [comment for comment in self.comments]
+            # 'bookmarked_by': [user.id for user in self.bookmarked_by],
+            # 'annotations': [note for note in self.annotations],
+            # 'comments': [comment for comment in self.comments]
         }

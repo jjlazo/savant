@@ -4,6 +4,11 @@ import { thunkLogout } from "../../redux/session";
 import OpenModalMenuItem from "./OpenModalMenuItem";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import './ProfileButton.css'
+import { SquareUser } from "lucide-react";
+// import AuthorFormModal from "../ModalForms/CreateAuthorModal";
+// import PoemFormModal from "../ModalForms/CreatePoemModal";
+// import { Link } from "react-router-dom";
 
 function ProfileButton() {
   const dispatch = useDispatch();
@@ -40,32 +45,37 @@ function ProfileButton() {
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <i className="fas fa-user-circle" />
+      <button onClick={toggleMenu} id="profile-button">
+        {/* <i className="fas fa-user-circle" /> */}
+        {<SquareUser />}
       </button>
       {showMenu && (
         <ul className={"profile-dropdown"} ref={ulRef}>
           {user ? (
-            <>
-              <li>{user.username}</li>
-              <li>{user.email}</li>
-              <li>
-                <button onClick={logout}>Log Out</button>
+            <div id="profile-popup-menu">
+              <li className="menu-li">Hello, {user.username}</li>
+              <li className="menu-li">{user.email}</li>
+              <li id="lg-butt-cont">
+                <button onClick={logout} id="logout-button">Log Out</button>
               </li>
-            </>
+            </ div>
           ) : (
-            <>
-              <OpenModalMenuItem
-                itemText="Log In"
-                onItemClick={closeMenu}
-                modalComponent={<LoginFormModal />}
-              />
-              <OpenModalMenuItem
-                itemText="Sign Up"
-                onItemClick={closeMenu}
-                modalComponent={<SignupFormModal />}
-              />
-            </>
+            <div id="popup-menu">
+              <p className="list-item">
+                <OpenModalMenuItem
+                  itemText="Log In"
+                  onItemClick={closeMenu}
+                  modalComponent={<LoginFormModal />}
+                />
+              </p>
+              <p className="list-item">
+                <OpenModalMenuItem
+                  itemText="Sign Up"
+                  onItemClick={closeMenu}
+                  modalComponent={<SignupFormModal />}
+                />
+              </p>
+            </div>
           )}
         </ul>
       )}

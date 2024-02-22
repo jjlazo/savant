@@ -1,0 +1,35 @@
+.data-box {
+    border: red solid 1px;
+    height: fit-content;
+    margin: 5px;
+    padding: 5px;
+}
+
+#container{
+    border: blue solid 1px;
+}
+
+.content{
+    padding: 5px;
+}
+
+.poem-body {
+    width: auto;
+}
+
+.no-poems {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.poem-title {
+    font-weight: bold;
+    width: fit-content;
+    cursor: pointer;
+}
+
+.book-worm {
+    height: 200px;
+    width: 183px;
+}

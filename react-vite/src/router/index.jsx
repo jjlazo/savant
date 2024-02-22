@@ -2,6 +2,14 @@ import { createBrowserRouter } from 'react-router-dom';
 import LoginFormPage from '../components/LoginFormPage';
 import SignupFormPage from '../components/SignupFormPage';
 import Layout from './Layout';
+import NotFound from '../components/NotFound';
+import PoemDetail from '../components/Poems/PoemDetail.jsx';
+import Bookmarks from '../components/Poems/Bookmarks.jsx';
+import AuthorDetail from '../components/Authors/AuthorDetail.jsx';
+import SplashPage from '../components/SplashPage/SplashPage';
+import AllPoems from '../components/Poems/AllPoems';
+import AllAuthors from '../components/Authors/AllAuthors.jsx';
+import UserHome from '../components/UserHome/UserHome.jsx';
 
 export const router = createBrowserRouter([
   {
@@ -9,16 +17,48 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <h1>Welcome!</h1>,
+        element: <SplashPage />,
+      },
+      // {
+      //   path: "login",
+      //   element: <LoginFormPage />,
+      // },
+      // {
+      //   path: "signup",
+      //   element: <SignupFormPage />,
+      // },
+      {
+        path: "/users/:userId/home",
+        element: <UserHome />,
       },
       {
-        path: "login",
-        element: <LoginFormPage />,
+        path: "/poems",
+        element: <AllPoems />,
       },
       {
-        path: "signup",
-        element: <SignupFormPage />,
+        path: "/poems/:poemId",
+        element: <PoemDetail />,
       },
+      {
+        path: "/authors",
+        element: <AllAuthors />,
+      },
+      {
+        path: "/authors/:authorId",
+        element: <AuthorDetail />,
+      },
+      {
+        path: "/users/:userId/bookmarks",
+        element: <Bookmarks />,
+      },
+      {
+        path: "/errors",
+        element: <NotFound/>
+      },
+      {
+        path: "*",
+        element: <NotFound/>
+      }
     ],
   },
 ]);

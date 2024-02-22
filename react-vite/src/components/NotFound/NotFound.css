@@ -1,0 +1,45 @@
+.book-bookworm{
+    width: 110px;
+    height: auto;
+
+}
+
+.not-found-body{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+    /* background-color: blue; */
+}
+
+.not-found-body-content{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 5px
+}
+
+.not-found-body-content div:nth-child(1){
+    font-weight: bold;
+    font-size: 40px;
+    color: cadetblue;
+}
+
+.not-found-body-content div:nth-child(2){
+    font-weight: 400;
+    font-size: 22px;
+    color: cadetblue;
+}
+
+.return-home-button{
+    padding: 10px 12px;
+    border: none;
+    background-color: cadetblue;
+    color: white;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 15px;
+    cursor: pointer;
+}

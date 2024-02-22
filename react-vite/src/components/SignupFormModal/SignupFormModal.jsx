@@ -38,12 +38,14 @@ function SignupFormModal() {
     }
   };
 
+  const renderErrors = (errors = []) => errors?.map(e => <p key={e} className="error-message">{e}</p>);
+
   return (
-    <>
-      <h1>Sign Up</h1>
-      {errors.server && <p>{errors.server}</p>}
+    <div id="outer-form-container-su">
+      <h1 id='sign-up-label'>Sign Up</h1>
+      <div className="error-messages">{renderErrors(errors.server)}</div>
       <form onSubmit={handleSubmit}>
-        <label>
+        <label className="su-label">
           Email
           <input
             type="text"
@@ -52,8 +54,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
-        <label>
+        <div className="error-messages">{renderErrors(errors.email)}</div>
+        <label className="su-label">
           Username
           <input
             type="text"
@@ -62,8 +64,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
-        <label>
+        <div className="error-messages">{renderErrors(errors.username)}</div>
+        <label className="su-label">
           Password
           <input
             type="password"
@@ -72,8 +74,8 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
-        <label>
+        <div className="error-messages">{renderErrors(errors.password)}</div>
+        <label className="su-label">
           Confirm Password
           <input
             type="password"
@@ -82,10 +84,10 @@ function SignupFormModal() {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <div className="error-messages">{renderErrors(errors.confirmPassword)}</div>
+        <button type="submit" id="su-button">Sign Up</button>
       </form>
-    </>
+    </div>
   );
 }
 

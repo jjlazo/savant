@@ -6,25 +6,32 @@ const ModalContext = createContext();
 
 export function ModalProvider({ children }) {
   const modalRef = useRef();
-  const [modalContent, setModalContent] = useState(null);
-  // callback function that will be called when modal is closing
-  const [onModalClose, setOnModalClose] = useState(null);
+  const [modalContent, setModalContent] = useState([]);
 
-  const closeModal = () => {
-    setModalContent(null); // clear the modal contents
+  const pushModalContent = (content) => {
+    setModalContent([...modalContent, content]);
+  }
+
+  const popModalContent = () => {
+    const content = modalContent[modalContent.length - 1];
+    setModalContent(modalContent.slice(0, -1));
+    return content;
+  }
+
+  const closeModal = (...args) => {
+    const undefinedOrContent = popModalContent();
     // If callback function is truthy, call the callback function and reset it
     // to null:
-    if (typeof onModalClose === 'function') {
-      setOnModalClose(null);
-      onModalClose();
+    if (!!undefinedOrContent && typeof undefinedOrContent.onClose === 'function') {
+      undefinedOrContent.onClose(...args);
     }
   };
 
   const contextValue = {
     modalRef, // reference to modal div
     modalContent, // React component to render inside modal
-    setModalContent, // function to set the React component to render inside modal
-    setOnModalClose, // function to set the callback function called when modal is closing
+    popModalContent,
+    pushModalContent,
     closeModal // function to close the modal
   };
 
@@ -39,7 +46,14 @@ export function ModalProvider({ children }) {
 }
 
 export function Modal() {
-  const { modalRef, modalContent, closeModal } = useContext(ModalContext);
+  const { modalRef, modalContent: modalContentArray, closeModal } = useContext(ModalContext);
+
+  let modalContent;
+
+  if (modalContentArray.length) {
+    modalContent = modalContentArray[modalContentArray.length - 1].component;
+  }
+
   // If there is no div referenced by the modalRef or modalContent is not a
   // truthy value, render nothing:
   if (!modalRef || !modalRef.current || !modalContent) return null;
