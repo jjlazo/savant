@@ -2,9 +2,22 @@ from flask import Blueprint, request
 from app.models import Author, db, Poem, User, Annotation, Comment
 from app.forms import AuthorForm, PoemForm, CommentForm
 from flask_login import current_user, login_required
+import random
 
 poem_routes = Blueprint('poem', __name__)
 
+def change_potd():
+    """Select and replace poem of the day"""
+    with db.app.app_context():
+        # print(Poem.query.all())
+        old_potd = Poem.query.filter(Poem.potd==True).first()
+
+        non_potd = Poem.query.filter(Poem.potd==False)
+        new_potd = random.choice(non_potd)
+
+        new_potd.potd = True
+        old_potd.potd = False
+        db.session.commit()
 
 @poem_routes.route('')
 def get_all_poems():
@@ -23,13 +36,13 @@ def get_poem(id):
         return {"Poem": poem.to_dict()}
     return {'errors': {'message': 'Poem Not Found'}}, 404
 
-# # get poem of the day
-# @poem_routes.route('/poem-of-the-day')
-# def get_random_poem(id):
-#     poem = Poem.query.get(id)
-#     if poem:
-#         return {"Poem": poem.to_dict()}
-#     return {'errors': {'message': 'Poem Not Found'}}, 404
+# get poem of the day
+@poem_routes.route('/potd')
+def get_potd():
+    poem = Poem.query.filter(Poem.potd==True).first()
+    if poem:
+        return {"Poem": poem.to_dict()}
+    return {'errors': {'message': 'Poem Not Found'}}, 404
 
 # create
 @poem_routes.route('', methods=["POST"])

@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
+from flask_apscheduler import APScheduler
 from .models import db, User
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
@@ -29,12 +30,18 @@ def load_user(id):
 app.cli.add_command(seed_commands)
 
 app.config.from_object(Config)
+
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(author_routes, url_prefix='/api/authors')
 app.register_blueprint(poem_routes, url_prefix='/api/poems')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
 db.init_app(app)
+
+scheduler = APScheduler()
+scheduler.init_app(app)
+scheduler.start()
+
 Migrate(app, db)
 
 # Application Security

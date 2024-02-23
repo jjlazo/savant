@@ -15,9 +15,11 @@ def seed_authors():
     browning = Author(
         name='Elizabeth Barrett Browning', biography='Elizabeth Barrett Browning was an English poet of the Victorian era, popular in Britain and the United States during her lifetime and frequently anthologised after her death.', posted_by=3)
     cummings = Author(
-        name='ee cummings', biography='Edward Estlin Cummings, who was also known as E. E. Cummings, e. e. Cummings, and e e Cummings, was an American poet, painter, essayist, author, and playwright. He was an ambulance driver during World War I and was in an internment camp, which provided the basis for his novel The Enormous Room.', posted_by=1)
+        name='ee cummings', biography='Edward Estlin Cummings, who was also known as E. E. Cummings, e. e. Cummings, and e e Cummings, was an American poet, painter, essayist, author, and playwright. He was an ambulance driver during World War I and was in an internment camp, which provided the basis for his novel The Enormous Room.', posted_by=4)
     shelley = Author(
-        name='Percy Bysshe Shelley', biography='Percy Bysshe Shelley was a British writer who is considered one of the major English Romantic poets.', posted_by=1)
+        name='Percy Bysshe Shelley', biography='Percy Bysshe Shelley was a British writer who is considered one of the major English Romantic poets.', posted_by=4)
+    oliver = Author(
+        name='Mary Oliver', biography='Mary Jane Oliver was an American poet who won the National Book Award and the Pulitzer Prize. She found inspiration for her work in nature and had a lifelong habit of solitary walks in the wild.', posted_by=4)
 
     db.session.add(shakespeare)
     db.session.add(yeats)
@@ -27,6 +29,7 @@ def seed_authors():
     db.session.add(browning)
     db.session.add(cummings)
     db.session.add(shelley)
+    db.session.add(oliver)
     db.session.commit()
 
 

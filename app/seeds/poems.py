@@ -20,6 +20,9 @@ def seed_poems():
         title='To the Moon [Fragment]', body='Art thou pale for weariness \n Of climbing Heaven, and gazing on the earth, \n Wandering companionless \n Among the stars that have a different birth,— \n And ever changing, like a joyless eye \n That finds no object worth its constancy?', posted_by=1, author_id=8, year_published=1824, audio="none")
     shakespeare2 = Poem(
         title='Sonnet 18', body='Shall I compare thee to a summer’s day? \n Thou art more lovely and more temperate: \n Rough winds do shake the darling buds of May, \n And summer’s lease hath all too short a date; \n Sometime too hot the eye of heaven shines, \n And often is his gold complexion dimm\'d; \n And every fair from fair sometime declines, \n By chance or nature’s changing course untrimm\'d; \n But thy eternal summer shall not fade, \n Nor lose possession of that fair thou ow’st; \n Nor shall death brag thou wander’st in his shade, \n When in eternal lines to time thou grow’st: \n So long as men can breathe or eyes can see, \n So long lives this, and this gives life to thee.', posted_by=4, author_id=1, year_published=1609, audio="none")
+    oliver = Poem(
+        title='Wild Geese', body='You do not have to be good. \n You do not have to walk on your knees \n for a hundred miles through the desert, repenting. \n You only have to let the soft animal of your body \n love what it loves. \n Tell me about despair, yours, and I will tell you mine. \n Meanwhile the world goes on. \n Meanwhile the sun and the clear pebbles of the rain \n are moving across the landscapes, \n over the prairies and the deep trees, \n the mountains and the rivers. \n Meanwhile the wild geese, high in the clean blue air, \n are heading home again. \n Whoever you are, no matter how lonely, \n the world offers itself to your imagination, \n calls to you like the wild geese, harsh and exciting– \n over and over announcing your place \n in the family of things.', potd=True, posted_by=3, author_id=9, year_published=1986, audio="none")
+
 
     db.session.add(shakespeare)
     db.session.add(shakespeare2)
@@ -30,6 +33,7 @@ def seed_poems():
     db.session.add(browning)
     db.session.add(cummings)
     db.session.add(shelley)
+    db.session.add(oliver)
     db.session.commit()
 
 
