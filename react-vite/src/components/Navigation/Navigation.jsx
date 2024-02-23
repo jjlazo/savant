@@ -5,7 +5,7 @@ import { BookMarked, BookPlus, BookUserIcon, Regex, UserCog } from "lucide-react
 // import OpenModalMenuItem from "./OpenModalMenuItem";
 import AuthorFormModal from "../ModalForms/CreateAuthorModal";
 import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import PoemFormModal from "../ModalForms/CreatePoemModal";
 import OpenModalButton from "../OpenModalButton";
 import { selectAllAuthors } from "../../redux/authors";

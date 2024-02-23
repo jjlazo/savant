@@ -80,7 +80,7 @@ export const fetchCreateAuthor = (author) => async dispatch => {
     return author
   } else {
     const errors = await response.json()
-    return errors
+    return {ok: response.ok, errors}
   }
 }
 

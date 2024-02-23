@@ -26,7 +26,7 @@ function UserHome() {
     const authored_by = authorArr?.filter(author => author?.posted_by === sessionUser?.id);
     const poem_by = poemArr?.filter(poem => poem?.posted_by == sessionUser?.id);
 
-    console.log({authors, authorArr, authored_by})
+    // console.log({authors, authorArr, authored_by})
     window.authors = authors;
 
 
@@ -51,9 +51,6 @@ function UserHome() {
         navigate('/');
     }
 
-    // useEffect(() => {
-    //     dispatch(authorActions.fetchAuthors())
-    // }, []);
     useEffect(() => {
         async function wrapperFn() {
             const response = await dispatch(authorActions.fetchAuthors())
