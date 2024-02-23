@@ -3,6 +3,16 @@ export const READ_POEMS = 'Poems/READ_POEMS';
 export const READ_POEM = 'Poems/READ_POEM';
 export const UPDATE_POEM = 'Poems/UPDATE_POEM';
 export const DELETE_POEM = 'Poems/DELETE_POEM';
+// export const SET_POEM_OF_THE_DAY = 'Poems/SET_POEM_OF_THE_DAY';
+
+// export const selectPoemOfTheDay = state => state.poems.poemOfTheDay || 1;
+
+// export const selectAllPoems = state => state.poems.allPoems;
+
+// export const setPoemOfTheDay = (poem) => ({
+//   type: SET_POEM_OF_THE_DAY,
+//   poem
+// })
 
 export const readPoems = (poems) => ({
   type: READ_POEMS,
@@ -29,6 +39,18 @@ export const deletePoem = (poemId) => ({
   poemId
 });
 
+// export const fetchPoemOfTheDay = () => async dispatch => {
+//   const response = await fetch(`/api/poems/potd`)
+
+//   if (response.ok) {
+//     const poem = await response.json()
+//     dispatch(readPoem(poem))
+//     return poem
+//   } else {
+//     const errors = await response.json()
+//     return errors
+//   }
+// }
 export const fetchPoems = () => async dispatch => {
   const response = await fetch(`/api/poems`)
 

@@ -5,7 +5,7 @@ from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
 from flask_apscheduler import APScheduler
-from .models import db, User
+from .models import db, User, Poem
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.author_routes import author_routes
@@ -13,6 +13,7 @@ from .api.poem_routes import poem_routes
 from .api.comment_routes import comment_routes
 from .seeds import seed_commands
 from .config import Config
+import random
 
 app = Flask(__name__, static_folder='../react-vite/dist', static_url_path='/')
 
@@ -39,6 +40,22 @@ app.register_blueprint(comment_routes, url_prefix='/api/comments')
 db.init_app(app)
 
 scheduler = APScheduler()
+
+@scheduler.task("cron", id="do_change_potd", hour=0)
+def change_potd():
+    """Select and replace poem of the day"""
+    with db.app.app_context():
+        # print(Poem.query.all())
+        old_potd = Poem.query.filter(Poem.potd==True).first()
+
+        non_potd = Poem.query.filter(Poem.potd==False)
+        new_potd = random.choice(non_potd)
+
+        new_potd.potd = True
+        old_potd.potd = False
+        db.session.commit()
+
+
 scheduler.init_app(app)
 scheduler.start()
 

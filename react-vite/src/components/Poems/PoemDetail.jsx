@@ -13,13 +13,13 @@ import "./Poems.css"
 import { useModal } from "../../context/Modal";
 
 function PoemDetail() {
-    const navigate = useNavigate()
-    const { poemId } = useParams()
+    const navigate = useNavigate();
+    const { poemId } = useParams();
     const [showMenu, setShowMenu] = useState(false);
-    const sessionUser = useSelector((state) => state.session.user)
-    let bookmarks = useSelector(state => state.bookmarks)
+    const sessionUser = useSelector((state) => state.session.user);
+    let bookmarks = useSelector(state => state.bookmarks);
     const [bookmarked, setBookmarked] = useState(bookmarks.hasOwnProperty(poemId));
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const { closeModal } = useModal();
 
     let poem = useSelector(state => state.poems)

@@ -28,6 +28,7 @@ class Poem(db.Model):
             'body': self.body,
             'posted_by': self.posted_by,
             'year_published': self.year_published,
+            'potd': self.potd,
             'audio': self.audio,
             'author_id': self.author_id,
             'author': self.author.name,
