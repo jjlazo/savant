@@ -7,6 +7,7 @@ import * as poemActions from '../../redux/poems'
 import * as authorActions from '../../redux/authors'
 import OpenModalButton from "../OpenModalButton";
 import { useModal } from "../../context/Modal";
+import './UserHome.css'
 
 
 function UserHome() {
@@ -28,6 +29,7 @@ function UserHome() {
 
     // console.log({authors, authorArr, authored_by})
     window.authors = authors;
+    window.poems = poems;
 
 
     const toggleMenu = (e) => {
