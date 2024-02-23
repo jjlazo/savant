@@ -19,7 +19,7 @@ function SplashPage() {
         dispatch(poemActions.fetchPoems())
         // dispatch(poemActions.fetchPoemOfTheDay())
         dispatch(authorActions.fetchAuthors())
-    })
+    }, [dispatch])
 
     const navigateToAuthor = (e, author_id) => {
         e.stopPropagation()
