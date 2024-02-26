@@ -1,5 +1,5 @@
 import os
-# from .api.poem_routes import change_potd
+from .api.poem_routes import change_potd
 from apscheduler.jobstores.sqlalchemy import SQLAlchemyJobStore
 
 
@@ -15,14 +15,14 @@ class Config:
         'DATABASE_URL').replace('postgres://', 'postgresql://')
     SQLALCHEMY_ECHO = True
     SCHEDULER_JOBSTORES = {
-        "default": SQLAlchemyJobStore(url="sqlite:///dev.db")
+        "default": SQLAlchemyJobStore(url="sqlite:///instance/dev.db")
     }
-    # JOBS = [
-    #     {
-    #         "id": "job1",
-    #         "func": change_potd,
-    #         "trigger": "cron",
-    #         "hour": 0,
-    #     }
-    # ]
+    JOBS = [
+        {
+            "id": "change_potd",
+            "func": change_potd,
+            "trigger": "cron",
+            "hour": 0,
+        }
+    ]
     SCHEDULER_API_ENABLED = True

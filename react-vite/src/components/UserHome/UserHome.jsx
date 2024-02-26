@@ -28,8 +28,8 @@ function UserHome() {
     const poem_by = poemArr?.filter(poem => poem?.posted_by == sessionUser?.id);
 
     // console.log({authors, authorArr, authored_by})
-    window.authors = authors;
-    window.poems = poems;
+    // window.authors = authors;
+    // window.poems = poems;
 
 
     const toggleMenu = (e) => {

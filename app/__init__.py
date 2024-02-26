@@ -41,7 +41,7 @@ db.init_app(app)
 
 scheduler = APScheduler()
 
-@scheduler.task("cron", id="do_change_potd", hour=0)
+# @scheduler.task("cron", id="change_potd", hour=0)
 def change_potd():
     """Select and replace poem of the day"""
     with db.app.app_context():
@@ -58,6 +58,8 @@ def change_potd():
 
 scheduler.init_app(app)
 scheduler.start()
+# remove this if the app breaks
+app.run()
 
 Migrate(app, db)
 
