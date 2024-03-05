@@ -27,10 +27,6 @@ function UserHome() {
     const authored_by = authorArr?.filter(author => author?.posted_by === sessionUser?.id);
     const poem_by = poemArr?.filter(poem => poem?.posted_by == sessionUser?.id);
 
-    // console.log({authors, authorArr, authored_by})
-    // window.authors = authors;
-    // window.poems = poems;
-
 
     const toggleMenu = (e) => {
         e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
@@ -55,9 +51,9 @@ function UserHome() {
 
     useEffect(() => {
         async function wrapperFn() {
-            const response = await dispatch(authorActions.fetchAuthors())
+            const response = await dispatch(authorActions.fetchAuthorsByUserId(userId))
             if (response?.errors) {
-                console.log("errors detected")
+                // console.log("errors detected")
                 navigate('/errors', { state: { "statusCode": 404, "message": response.errors.message } })
             }
         }
@@ -67,7 +63,7 @@ function UserHome() {
 
     useEffect(() => {
         async function wrapperFn() {
-            const response = await dispatch(poemActions.fetchPoems())
+            const response = await dispatch(poemActions.getPoemsByUserId(userId))
             if (response?.errors) {
                 navigate('/errors', { state: { "statusCode": 404, "message": response.errors.message } })
             }

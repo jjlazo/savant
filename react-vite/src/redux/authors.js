@@ -65,6 +65,19 @@ export const fetchAuthorById = (authorId) => async dispatch => {
   }
 }
 
+export const fetchAuthorsByUserId = (userId) => async dispatch => {
+  const response = await fetch(`/api/users/${userId}/user-authors`)
+
+  if (response.ok) {
+    const authors = await response.json()
+    dispatch(readAuthors(authors))
+    return authors
+  } else {
+    const errors = await response.json()
+    return errors
+  }
+}
+
 export const fetchCreateAuthor = (author) => async dispatch => {
   const response = await fetch(`/api/authors`, {
     method: "POST",

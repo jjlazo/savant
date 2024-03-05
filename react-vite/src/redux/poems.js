@@ -143,6 +143,19 @@ export const getPoemsByAuthorId = (authorId) => async dispatch => {
   }
 }
 
+export const getPoemsByUserId = (userId) => async dispatch => {
+  const response = await fetch(`/api/users/${userId}/user-poems`)
+
+  if (response.ok) {
+    const poems = await response.json()
+    dispatch(readPoems(poems))
+    return response
+  } else {
+    const errors = await response.json()
+    return errors
+  }
+}
+
 const poemsReducer = (state = {}, action) => {
   switch (action.type) {
     case READ_POEMS: {
