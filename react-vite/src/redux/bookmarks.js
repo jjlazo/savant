@@ -1,3 +1,5 @@
+import { REMOVE_USER } from './session'
+
 export const CREATE_BOOKMARK = 'bookmarks/CREATE_BOOKMARK';
 export const READ_BOOKMARKS = 'bookmarks/READ_BOOKMARKS';
 export const DELETE_BOOKMARK = 'bookmarks/DELETE_BOOKMARK';
@@ -82,6 +84,8 @@ const bookmarkReducer = (state = {}, action) => {
       delete newState[action.poemId];
       return newState;
     }
+    case REMOVE_USER:
+      return {}
     default:
       return state;
   }
