@@ -1,4 +1,6 @@
+import random
 from flask import Blueprint, request
+import app
 from app.models import Author, db, Poem, User, Annotation, Comment
 from app.forms import AuthorForm, PoemForm, CommentForm
 from flask_login import current_user, login_required
