@@ -1,6 +1,6 @@
 .home-container {
     background-color: cadetblue;
-    height: max-content;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;

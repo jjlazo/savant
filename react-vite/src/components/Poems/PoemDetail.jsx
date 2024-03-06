@@ -22,6 +22,10 @@ function PoemDetail() {
     const dispatch = useDispatch();
     const { closeModal } = useModal();
 
+    useEffect(()=> {
+        setBookmarked(bookmarks.hasOwnProperty(poemId))
+    }, [bookmarks, poemId])
+
     let poem = useSelector(state => state.poems)
     let comments = useSelector(state => state.comments)
 
@@ -43,6 +47,12 @@ function PoemDetail() {
     useEffect(() => {
         dispatch(poemActions.fetchPoems())
     }, [poemId])
+
+    useEffect(() => {
+        if (sessionUser?.id) {
+            dispatch(bookmarkActions.fetchGetAllBookmarks(sessionUser?.id))
+        }
+    }, [sessionUser])
 
     const handleBookmarking = () => {
         if (bookmarked) {
