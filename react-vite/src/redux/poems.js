@@ -1,3 +1,5 @@
+import { DELETE_AUTHOR } from "./authors";
+
 export const CREATE_POEM = 'Poems/CREATE_POEM';
 export const READ_POEMS = 'Poems/READ_POEMS';
 export const READ_POEM = 'Poems/READ_POEM';
@@ -181,6 +183,13 @@ const poemsReducer = (state = {}, action) => {
       const newState = { ...state };
       delete newState[action.poemId];
       return newState;
+    }
+    case DELETE_AUTHOR: {
+      const newState = { ...state }
+      for (const poemId of action.poemIds) {
+        delete newState[poemId];
+      }
+      return newState
     }
     default:
       return state;

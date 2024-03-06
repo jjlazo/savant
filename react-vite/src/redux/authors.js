@@ -34,9 +34,10 @@ export const updateAuthor = (author) => ({
   author
 });
 
-export const deleteAuthor = (authorId) => ({
+export const deleteAuthor = (authorId, poemIds) => ({
   type: DELETE_AUTHOR,
-  authorId
+  authorId,
+  poemIds
 });
 
 export const fetchAuthors = () => async dispatch => {
@@ -124,7 +125,8 @@ export const fetchDeleteAuthor = (authorId) => async dispatch => {
   })
 
   if (response.ok) {
-    dispatch(deleteAuthor(authorId))
+    const res = await response.json()
+    dispatch(deleteAuthor(authorId, res.poemIds))
   } else {
     const errors = await response.json()
     return errors
