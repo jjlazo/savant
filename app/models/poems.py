@@ -14,6 +14,7 @@ class Poem(db.Model):
     audio = db.Column(db.String)
     year_published = db.Column(db.Integer, nullable=False)
     posted_by = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    potd = db.Column(db.Boolean, default=False)
 
     author = db.relationship("Author", back_populates="poems")
     comments = db.relationship("Comment", back_populates="poem", cascade="all,delete")
@@ -27,6 +28,7 @@ class Poem(db.Model):
             'body': self.body,
             'posted_by': self.posted_by,
             'year_published': self.year_published,
+            'potd': self.potd,
             'audio': self.audio,
             'author_id': self.author_id,
             'author': self.author.name,

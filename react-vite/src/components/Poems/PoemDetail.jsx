@@ -13,14 +13,18 @@ import "./Poems.css"
 import { useModal } from "../../context/Modal";
 
 function PoemDetail() {
-    const navigate = useNavigate()
-    const { poemId } = useParams()
+    const navigate = useNavigate();
+    const { poemId } = useParams();
     const [showMenu, setShowMenu] = useState(false);
-    const sessionUser = useSelector((state) => state.session.user)
-    let bookmarks = useSelector(state => state.bookmarks)
+    const sessionUser = useSelector((state) => state.session.user);
+    let bookmarks = useSelector(state => state.bookmarks);
     const [bookmarked, setBookmarked] = useState(bookmarks.hasOwnProperty(poemId));
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const { closeModal } = useModal();
+
+    useEffect(()=> {
+        setBookmarked(bookmarks.hasOwnProperty(poemId))
+    }, [bookmarks, poemId])
 
     let poem = useSelector(state => state.poems)
     let comments = useSelector(state => state.comments)
@@ -43,6 +47,12 @@ function PoemDetail() {
     useEffect(() => {
         dispatch(poemActions.fetchPoems())
     }, [poemId])
+
+    useEffect(() => {
+        if (sessionUser?.id) {
+            dispatch(bookmarkActions.fetchGetAllBookmarks(sessionUser?.id))
+        }
+    }, [sessionUser])
 
     const handleBookmarking = () => {
         if (bookmarked) {

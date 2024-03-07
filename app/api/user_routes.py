@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify
 from flask_login import current_user, login_required
 from app.models import User
+from app.models.authors import Author
+from app.models.poems import Poem
 
 user_routes = Blueprint('users', __name__)
 
@@ -31,3 +33,19 @@ def user_bookmarks(id):
     if user.id == current_user.id:
         return {"Poems": [poem.to_dict() for poem in user.bookmarks]}
     return { "message": "User unauthorized"}, 401
+
+@user_routes.route('/<int:id>/user-poems')
+def user_poems(id):
+    user = User.query.get(id)
+    if user.id == current_user.id:
+        poems = Poem.query.filter(Poem.posted_by==user.id).all()
+        return {"Poems": [poem.to_dict() for poem in poems]}
+    return {"message": "User unauthorized"}, 401
+
+@user_routes.route('/<int:id>/user-authors')
+def user_authors(id):
+    user = User.query.get(id)
+    if user.id == current_user.id:
+        authors = Author.query.filter(Author.posted_by==user.id).all()
+        return {"Authors": [author.to_dict() for author in authors]}
+    return {"message": "User unauthorized"}, 401

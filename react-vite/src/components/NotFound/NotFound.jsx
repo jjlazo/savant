@@ -7,7 +7,7 @@ function NotFound({ statusCode, message }) {
     const navigate = useNavigate()
     const { state } = useLocation()
     return (
-        <div className="home-container">
+        <div className="four-o-four-container">
             <div className="container-content">
                 <div className="not-found-body">
                     <img className="book-bookworm" src={bookwormError} alt="bookworm" />
