@@ -1,0 +1,11 @@
+.home-container {
+    background-color: cadetblue;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.container-content {
+    width: 100%;
+}

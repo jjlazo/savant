@@ -86,6 +86,8 @@ function SignupFormModal() {
         </label>
         <div className="error-messages">{renderErrors(errors.confirmPassword)}</div>
         <button type="submit" id="su-button">Sign Up</button>
+        <span className="google-auth-div">or</span>
+        <a href={`${window.origin}/api/auth/oauth_login`} className="google-auth"><button className="button" type="button">Sign up with Google</button></a>
       </form>
     </div>
   );

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as poemActions from '../../redux/poems'
 import * as bookmarkActions from '../../redux/bookmarks'
 import Feed from '../Feed'
+import './Bookmarks.css'
 
 
 function Bookmarks() {

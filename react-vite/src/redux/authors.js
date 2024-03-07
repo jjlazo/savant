@@ -34,9 +34,10 @@ export const updateAuthor = (author) => ({
   author
 });
 
-export const deleteAuthor = (authorId) => ({
+export const deleteAuthor = (authorId, poemIds) => ({
   type: DELETE_AUTHOR,
-  authorId
+  authorId,
+  poemIds
 });
 
 export const fetchAuthors = () => async dispatch => {
@@ -65,6 +66,19 @@ export const fetchAuthorById = (authorId) => async dispatch => {
   }
 }
 
+export const fetchAuthorsByUserId = (userId) => async dispatch => {
+  const response = await fetch(`/api/users/${userId}/user-authors`)
+
+  if (response.ok) {
+    const authors = await response.json()
+    dispatch(readAuthors(authors))
+    return authors
+  } else {
+    const errors = await response.json()
+    return errors
+  }
+}
+
 export const fetchCreateAuthor = (author) => async dispatch => {
   const response = await fetch(`/api/authors`, {
     method: "POST",
@@ -80,7 +94,7 @@ export const fetchCreateAuthor = (author) => async dispatch => {
     return author
   } else {
     const errors = await response.json()
-    return errors
+    return {ok: response.ok, errors}
   }
 }
 
@@ -111,7 +125,8 @@ export const fetchDeleteAuthor = (authorId) => async dispatch => {
   })
 
   if (response.ok) {
-    dispatch(deleteAuthor(authorId))
+    const res = await response.json()
+    dispatch(deleteAuthor(authorId, res.poemIds))
   } else {
     const errors = await response.json()
     return errors

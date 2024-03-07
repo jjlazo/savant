@@ -65,6 +65,8 @@ function LoginFormModal() {
         <p className="error-message">{errors.password && errors.password}</p>
         <button type="submit" className='lfm-button'>Log In</button>
         <button onClick={handleDemoSubmit} className="lfm-button" type="submit">Demo user</button>
+        <span className="google-auth-div">or</span>
+        <a href={`${window.origin}/api/auth/oauth_login`} className="google-auth"><button className="button" type="button">Sign in with Google</button></a>
       </form>
     </div>
   );

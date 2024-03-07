@@ -71,10 +71,11 @@ def delete_author(id):
     author = Author.query.get(id)
 
     if (author.posted_by == current_user.id):
+        poem_ids = [poem.id for poem in author.poems]
         db.session.delete(author)
         db.session.commit()
 
-        return {"message": "Success"}, 200
+        return {"message": "Success", "poemIds": poem_ids}, 200
 
     return { "message": "User unauthorized"}, 401
 

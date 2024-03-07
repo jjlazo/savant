@@ -4,37 +4,41 @@ import "./Navigation.css";
 import { BookMarked, BookPlus, BookUserIcon, Regex, UserCog } from "lucide-react";
 // import OpenModalMenuItem from "./OpenModalMenuItem";
 import AuthorFormModal from "../ModalForms/CreateAuthorModal";
-import { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import PoemFormModal from "../ModalForms/CreatePoemModal";
 import OpenModalButton from "../OpenModalButton";
 import { selectAllAuthors } from "../../redux/authors";
 import { useModal } from "../../context/Modal";
 // import UserHome from "../UserHome/UserHome";
+const selectAllAuthorsArr = state => Object.values(selectAllAuthors(state) || {})
+const selectAllPoemsArr = state => Object.values(state.poems || {})
 
 function Navigation() {
   const [showMenu, setShowMenu] = useState(false);
   const navigate = useNavigate()
   const user = useSelector((store) => store.session.user);
-  const allAuthors = useSelector(state => Object.values(selectAllAuthors(state) || {}));
-  const allPoems = useSelector(state => Object.values(state.poems || {}));
+  const allAuthors = useSelector(selectAllAuthorsArr);
+  const allPoems = useSelector(selectAllPoemsArr);
   const ulRef = useRef();
   const { closeModal } = useModal();
 
   const [searchString, setSearchString] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-  const updateSearchResults = (e) => {
-    // i === case insensitive :)
-    const authors = allAuthors.filter(a => new RegExp(`${searchString}`, 'i').test(a.name)).map(a => ({ ...a, type: "AUTHOR" }));
-    const poems = allPoems.filter(p => new RegExp(`${searchString}`, 'i').test(p.title)).map(a => ({ ...a, type: "POEM" }));
+  const updateSearchResults = useMemo (()=> {
+    return (e) => {
+      // i === case insensitive :)
+      const authors = allAuthors.filter(a => new RegExp(`${searchString}`, 'i').test(a.name)).map(a => ({ ...a, type: "AUTHOR" }));
+      const poems = allPoems.filter(p => new RegExp(`${searchString}`, 'i').test(p.title)).map(a => ({ ...a, type: "POEM" }));
 
-    setSearchResults(authors.concat(poems));
-  }
+      setSearchResults(authors.concat(poems));
+    }
+  }, [searchString, allPoems, allAuthors, setSearchResults])
 
   useEffect(() => {
     updateSearchResults();
-  }, [searchString, allPoems, allAuthors, updateSearchResults]);
+  }, [updateSearchResults]);
 
   useEffect(() => {
     if (!showMenu) return;
