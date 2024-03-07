@@ -22,18 +22,37 @@ def seed_poems():
         title='Sonnet 18', body='Shall I compare thee to a summer’s day? \n Thou art more lovely and more temperate: \n Rough winds do shake the darling buds of May, \n And summer’s lease hath all too short a date; \n Sometime too hot the eye of heaven shines, \n And often is his gold complexion dimm\'d; \n And every fair from fair sometime declines, \n By chance or nature’s changing course untrimm\'d; \n But thy eternal summer shall not fade, \n Nor lose possession of that fair thou ow’st; \n Nor shall death brag thou wander’st in his shade, \n When in eternal lines to time thou grow’st: \n So long as men can breathe or eyes can see, \n So long lives this, and this gives life to thee.', posted_by=4, author_id=1, year_published=1609, audio="none")
     oliver = Poem(
         title='Wild Geese', body='You do not have to be good. \n You do not have to walk on your knees \n for a hundred miles through the desert, repenting. \n You only have to let the soft animal of your body \n love what it loves. \n Tell me about despair, yours, and I will tell you mine. \n Meanwhile the world goes on. \n Meanwhile the sun and the clear pebbles of the rain \n are moving across the landscapes, \n over the prairies and the deep trees, \n the mountains and the rivers. \n Meanwhile the wild geese, high in the clean blue air, \n are heading home again. \n Whoever you are, no matter how lonely, \n the world offers itself to your imagination, \n calls to you like the wild geese, harsh and exciting– \n over and over announcing your place \n in the family of things.', potd=True, posted_by=3, author_id=9, year_published=1986, audio="none")
-
+    oliver2 = Poem(
+        title='The Sun', body='Have you ever seen \n anything \n in your life \n more wonderful \n  \n than the way the sun, \n every evening, \n relaxed and easy, \n floats toward the horizon \n  \n and into the clouds or the hills, \n or the rumpled sea, \n and is gone-- \n and how it slides again \n  \n out of the blackness, \n every morning, \n on the other side of the world, \n like a red flower \n  \n streaming upward on its heavenly oils, \n say, on a morning in early summer, \n at its perfect imperial distance-- \n and have you ever felt for anything \n such wild love-- \n do you think there is anywhere, in any language, \n a word billowing enough \n for the pleasure \n  \n that fills you, \n as the sun \n reaches out, \n as it warms you \n  \n as you stand there, \n empty-handed-- \n or have you too \n turned from this world-- \n  \n or have you too \n gone crazy \n for power, \n for things?', posted_by=3, author_id=9, year_published=1992, audio="none")
+    shakespeare3 = Poem(
+        title="Sonnet 27", body="    Weary with toil, I haste me to my bed, \n The dear repose for limbs with travel tired; \n But then begins a journey in my head, \n To work my mind, when body’s work’s expired: \n For then my thoughts, from far where I abide, \n Intend a zealous pilgrimage to thee, \n And keep my drooping eyelids open wide, \n Looking on darkness which the blind do see: \n Save that my soul’s imaginary sight \n Presents thy shadow to my sightless view, \n Which, like a jewel hung in ghastly night, \n Makes black night beauteous and her old face new. \n     Lo! Thus, by day my limbs, by night my mind, \n     For thee and for myself no quiet find.", posted_by=6, author_id=1, year_published=1609, audio="none")
+    shelley2 = Poem(
+        title="The Magi", body="    Now as at all times I can see in the mind's eye, \n In their stiff, painted clothes, the pale unsatisfied ones \n Appear and disappear in the blue depth of the sky \n With all their ancient faces like rain-beaten stones, \n And all their helms of silver hovering side by side, \n And all their eyes still fixed, hoping to find once more, \n Being by Calvary's turbulence unsatisfied, \n The uncontrollable mystery on the bestial floor.", posted_by=6, author_id=8, year_published=1989, audio="none")
+    blake2 = Poem(
+        title="A Divine Image", body="Cruelty has a Human heart \n And Jealousy a Human Face, \n Terror, the Human Form Divine, \n And Secrecy, the Human Dress. \n  \n The Human Dress is forgéd Iron, \n The Human Form, a fiery Forge, \n The Human Face, a Furnace seal'd, \n The Human Heart, its hungry Gorge.", posted_by=6, author_id=5, year_published=1789, audio="none")
+    cummings2 = Poem(
+        title="Summer Silence", body="Eruptive lightnings flutter to and fro \n Above the heights of immemorial hills; \n Thirst-stricken air, dumb-throated, in its woe \n Limply down-sagging, its limp body spills \n Upon the earth. A panting silence fills \n The empty vault of Night with shimmering bars \n Of sullen silver, where the lake distils \n Its misered bounty.—Hark! No whisper mars \n The utter silence of the untranslated stars.", posted_by=5, author_id=7, year_published=1913, audio="none")
+    dickinson2 = Poem(
+        title="I could suffice for Him, I knew", body="I could suffice for Him, I knew— \n He—could suffice for Me— \n Yet Hesitating Fractions—Both \n Surveyed Infinity— \n  \n 'Would I be Whole' He sudden broached— \n My syllable rebelled— \n 'Twas face to face with Nature—forced— \n 'Twas face to face with God— \n  \n Withdrew the Sun—to Other Wests— \n Withdrew the furthest Star \n Before Decision—stooped to speech— \n And then—be audibler \n  \n The Answer of the Sea unto \n The Motion of the Moon— \n Herself adjust Her Tides—unto— \n Could I—do else—with Mine?", posted_by=5, author_id=3, year_published=1890, audio="none")
+    # poet = Poem(
+    #     title="", body="", posted_by=5, author_id=8, year_published=1, audio="none")
 
     db.session.add(shakespeare)
     db.session.add(shakespeare2)
+    db.session.add(shakespeare3)
     db.session.add(yeats)
     db.session.add(dickinson)
+    db.session.add(dickinson2)
     db.session.add(whitman)
     db.session.add(blake)
+    db.session.add(blake2)
     db.session.add(browning)
     db.session.add(cummings)
+    db.session.add(cummings2)
     db.session.add(shelley)
+    db.session.add(shelley2)
     db.session.add(oliver)
+    db.session.add(oliver2)
     db.session.commit()
 
 
