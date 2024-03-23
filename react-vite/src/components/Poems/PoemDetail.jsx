@@ -44,9 +44,9 @@ function PoemDetail() {
         closeModal()
     }
 
-    useEffect(() => {
-        dispatch(poemActions.fetchPoems())
-    }, [poemId])
+    // useEffect(() => {
+    //     dispatch(poemActions.fetchPoemById(poemId))
+    // }, [poemId])
 
     useEffect(() => {
         if (sessionUser?.id) {
