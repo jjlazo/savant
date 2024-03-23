@@ -29,6 +29,6 @@ class Annotation(db.Model):
             "username": self.user.username,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
-            'upvotes': self.upvotes,
-            'downvotes': self.downvotes
+            # 'upvotes': [vote.id for vote in self.upvotes],
+            # 'downvotes': [vote.id for vote in self.downvotes]
         }

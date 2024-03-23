@@ -1,7 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateTimeField, IntegerField,  URLField, SubmitField, TextAreaField, SelectField
-from wtforms.validators import DataRequired, Length, ValidationError
-from app.models import Author
+from wtforms import StringField, IntegerField, SubmitField, TextAreaField
+from wtforms.validators import DataRequired, Length
 
 class PoemForm(FlaskForm):
     title = StringField('Title', validators=[DataRequired()])
