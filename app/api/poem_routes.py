@@ -1,6 +1,7 @@
 import random
 from flask import Blueprint, request
 import app
+from app.forms.annotation_form import AnnotationForm
 from app.models import Author, db, Poem, User, Annotation, Comment
 from app.forms import AuthorForm, PoemForm, CommentForm
 from flask_login import current_user, login_required
@@ -153,3 +154,37 @@ def delete_bookmark(id):
     db.session.commit()
 
     return {"message": "Successfully deleted"}, 201
+
+
+# Get annotation(s) by poem id
+@poem_routes.route('/<int:id>/annotations')
+def get_annotations(id):
+    annotations = Annotation.query.filter(Annotation.poem_id==id).all()
+
+    return {"Annotations": [annotation.to_dict() for annotation in annotations]}
+
+
+# Create an annotation by poem id
+@poem_routes.route('/<int:id>/annotations', methods=["POST"])
+def create_annotation(id):
+    user_id = current_user.id
+
+    form = AnnotationForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        params = {
+            "note": form.note.data,
+            "user_id": user_id,
+            "poem_id": id,
+            "line_number": form.line_number.data
+        }
+
+        new_annotation = Annotation(**params)
+
+        db.session.add(new_annotation)
+        db.session.commit()
+
+        return new_annotation.to_dict()
+
+    return form.errors, 400

@@ -11,6 +11,7 @@ from .api.auth_routes import auth_routes
 from .api.author_routes import author_routes
 from .api.poem_routes import poem_routes
 from .api.comment_routes import comment_routes
+from .api.annotation_routes import annotation_routes
 from .seeds import seed_commands
 from .config import Config
 import random
@@ -38,6 +39,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(author_routes, url_prefix='/api/authors')
 app.register_blueprint(poem_routes, url_prefix='/api/poems')
 app.register_blueprint(comment_routes, url_prefix='/api/comments')
+app.register_blueprint(annotation_routes, url_prefix='/api/annotations')
 db.init_app(app)
 
 scheduler = BackgroundScheduler()
