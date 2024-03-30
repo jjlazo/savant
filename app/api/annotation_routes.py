@@ -64,3 +64,34 @@ def delete_upvote(id):
             return {"message": "Successfully deleted"}, 201
         return {"message": "Annotation not upvoted"}
     return {"message": "Sign up to upvote annotations!"}
+
+
+# Create an downvote
+@annotation_routes.route("/<int:id>/downvote", methods=["POST"])
+def create_downvote(id):
+    user = User.query.get(current_user.id)
+    note = Annotation.query.get(id)
+
+    if note in user.upvoted_notes:
+        user.upvoted_notes.remove(note)
+        db.session.commit()
+
+    user.downvoted_notes.append(note)
+    db.session.commit()
+
+    return  note.to_dict(), 201
+
+
+# Delete an downvote
+@annotation_routes.route("/<int:id>/downvote", methods=["DELETE"])
+def delete_downvote(id):
+    user = User.query.get(current_user.id)
+    note = Annotation.query.get(id)
+
+    if user:
+        if note in user.downvoted_notes:
+            user.downvoted_notes.remove(note)
+            db.session.commit()
+            return {"message": "Successfully deleted"}, 201
+        return {"message": "Annotation not downvoted"}
+    return {"message": "Sign up to downvote annotations!"}
