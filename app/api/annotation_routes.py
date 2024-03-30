@@ -1,5 +1,5 @@
 from flask import Blueprint, request
-from app.models import db, Annotation
+from app.models import db, Annotation, User
 from app.forms import AnnotationForm
 from flask_login import current_user
 
@@ -34,3 +34,33 @@ def delete_annotation(id):
         return {"message": "Success"}, 200
 
     return { "message": "User unauthorized"}, 401
+
+
+# Create an upvote
+@annotation_routes.route("/<int:id>/upvote", methods=["POST"])
+def create_upvote(id):
+    user = User.query.get(current_user.id)
+    note = Annotation.query.get(id)
+
+    if note in user.downvoted_notes:
+        user.downvoted_notes.remove(note)
+        db.session.commit()
+
+    user.upvoted_notes.append(note)
+    db.session.commit()
+
+    return note.to_dict(), 201
+
+
+# Delete an upvote
+@annotation_routes.route("/<int:id>/upvote", methods=["DELETE"])
+def delete_upvote(id):
+    user = User.query.get(current_user.id)
+    note = Annotation.query.get(id)
+    if user:
+        if note in user.upvoted_notes:
+            user.upvoted_notes.remove(note)
+            db.session.commit()
+            return {"message": "Successfully deleted"}, 201
+        return {"message": "Annotation not upvoted"}
+    return {"message": "Sign up to upvote annotations!"}
