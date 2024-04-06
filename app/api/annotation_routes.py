@@ -14,6 +14,7 @@ def edit_annotation(id):
     if (annotation.user_id == current_user.id):
         if form.validate_on_submit():
             annotation.note = form.note.data
+            annotation.line_number = form.line_number.data
             db.session.commit()
 
             return annotation.to_dict(), 201
