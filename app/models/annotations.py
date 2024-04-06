@@ -26,9 +26,10 @@ class Annotation(db.Model):
             'note': self.note,
             'user_id': self.user_id,
             'poem_id': self.poem_id,
+            "line_number": self.line_number,
             "username": self.user.username,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
-            # 'upvotes': [vote.id for vote in self.upvotes],
-            # 'downvotes': [vote.id for vote in self.downvotes]
+            'upvotes': [vote.id for vote in self.upvotes],
+            'downvotes': [vote.id for vote in self.downvotes]
         }
