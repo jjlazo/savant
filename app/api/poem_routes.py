@@ -90,10 +90,11 @@ def delete_poem(id):
     poem = Poem.query.get(id)
 
     if (poem.posted_by == current_user.id):
+        note_ids = [note.id for note in poem.annotations]
         db.session.delete(poem)
         db.session.commit()
 
-        return {"message": "Success"}, 200
+        return {"message": "Success", "noteIds": note_ids}, 200
 
     return { "message": "User unauthorized"}, 401
 

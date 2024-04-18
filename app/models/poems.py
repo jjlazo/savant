@@ -32,7 +32,7 @@ class Poem(db.Model):
             'audio': self.audio,
             'author_id': self.author_id,
             'author': self.author.name,
+            'annotations': [note.id for note in self.annotations],
             # 'bookmarked_by': [user.id for user in self.bookmarked_by],
-            # 'annotations': [note for note in self.annotations],
             # 'comments': [comment for comment in self.comments]
         }
