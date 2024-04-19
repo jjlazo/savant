@@ -10,13 +10,15 @@ import authorsReducer from "./authors";
 import poemsReducer from "./poems";
 import commentsReducer from "./comments";
 import bookmarkReducer from "./bookmarks";
+import annotationsReducer from "./annotations";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   authors: authorsReducer,
   poems: poemsReducer,
   comments: commentsReducer,
-  bookmarks: bookmarkReducer
+  bookmarks: bookmarkReducer,
+  annotations: annotationsReducer
 });
 
 let enhancer;

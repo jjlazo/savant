@@ -5,6 +5,14 @@ from flask_login import current_user
 
 annotation_routes = Blueprint('annotation', __name__)
 
+# Get annotation by id
+@annotation_routes.route('/<int:id>')
+def get_annotations(id):
+    annotation = Annotation.query.filter(Annotation.id==id).first()
+
+    return {"Annotation": annotation.to_dict()}
+
+
 @annotation_routes.route('/<int:id>', methods=["PUT"])
 def edit_annotation(id):
     annotation = Annotation.query.get(id)

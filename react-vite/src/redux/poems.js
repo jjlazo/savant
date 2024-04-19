@@ -36,9 +36,10 @@ export const updatePoem = (poem) => ({
   poem
 });
 
-export const deletePoem = (poemId) => ({
+export const deletePoem = (poemId, noteIds) => ({
   type: DELETE_POEM,
-  poemId
+  poemId,
+  noteIds
 });
 
 // export const fetchPoemOfTheDay = () => async dispatch => {
@@ -125,7 +126,8 @@ export const fetchDeletePoem = (poemId) => async dispatch => {
   })
 
   if (response.ok) {
-    dispatch(deletePoem(poemId))
+    const res = await response.json()
+    dispatch(deletePoem(poemId, res.noteIds))
   } else {
     const errors = await response.json()
     return errors
