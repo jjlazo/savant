@@ -20,6 +20,9 @@ function UserHome() {
     const sessionUser = useSelector((state) => state.session.user)
     let poems = useSelector(state => state.poems)
     let authors = useSelector(authorActions.selectAllAuthors)
+    const [userEmail, setUserEmail] = useState(sessionUser?.email)
+    const [userUsername, setUsername] = useState(sessionUser?.username)
+    const [password, setPassword] = useState("")
 
     const authorArr = Object.values(authors)
     const poemArr = Object.values(poems)
@@ -84,9 +87,32 @@ function UserHome() {
         closeModal()
     }
 
+    const handleSubmit = async (e) => {
+        // insert thunk dispatch here ...
+    }
+
     return (
         <div className="home-container">
-            <h3 id="home-page-label">Hello, {sessionUser.username}!</h3>
+            <form onSubmit={handleSubmit}>
+                <h3 id="home-page-label">Hello, {sessionUser?.username}!</h3>
+                <img src={sessionUser?.profile_image} className="profile-picture" />
+                <input
+                    type="text"
+                    placeholder={userEmail}
+                    value={userEmail}
+                    onChange={(e) => setUserEmail(e.target.value)} />
+                <input
+                    type="text"
+                    placeholder={userUsername}
+                    value={userUsername}
+                    onChange={(e) => setUsername(e.target.value)} />
+                <input
+                    type="password"
+                    placeholder="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)} />
+                <button type="submit">Save Changes</button>
+            </form>
             <div className="creations-container">
                 <h4>Your Authors</h4>
                 {authored_by >= 1 ? authored_by?.map(author => (
@@ -108,14 +134,14 @@ function UserHome() {
                                 />
                                 <OpenModalButton
                                     onButtonClick={closeMenu}
-                                    modalComponent={<UpdateAuthorFormModal authorId={author?.id}  defaultName={author?.name} defaultBiography={author?.biography} />}
+                                    modalComponent={<UpdateAuthorFormModal authorId={author?.id} defaultName={author?.name} defaultBiography={author?.biography} />}
                                     buttonText={<PencilLine strokeWidth={"2.05px"} className="update-icon" />}
                                 />
                             </>)
                         }
                     </div>
                 )) :
-                "Share an Author!"}
+                    "Share an Author!"}
             </div>
             <div className="creations-container">
                 <h4>Your Poems</h4>
@@ -145,7 +171,7 @@ function UserHome() {
                         }
                     </div>
                 )) :
-                "Share a Poem!"}
+                    "Share a Poem!"}
             </div>
         </div>
     )
