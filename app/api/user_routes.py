@@ -5,7 +5,7 @@ from app.models import User, db
 from app.models.authors import Author
 from app.models.poems import Poem
 from app.models.annotations import Annotation
-from aws import (
+from .aws import (
     upload_file_to_s3, get_unique_filename)
 
 user_routes = Blueprint('users', __name__)

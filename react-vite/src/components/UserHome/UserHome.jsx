@@ -86,10 +86,10 @@ function UserHome() {
 
     return (
         <div className="home-container">
-            <h3 id="home-page-label">Home</h3>
+            <h3 id="home-page-label">Hello, {sessionUser.username}!</h3>
             <div className="creations-container">
                 <h4>Your Authors</h4>
-                {authored_by?.map(author => (
+                {authored_by >= 1 ? authored_by?.map(author => (
                     <div key={author.id}>
                         {author?.name}
                         {author?.name &&
@@ -114,11 +114,12 @@ function UserHome() {
                             </>)
                         }
                     </div>
-                ))}
+                )) :
+                "Share an Author!"}
             </div>
             <div className="creations-container">
                 <h4>Your Poems</h4>
-                {poem_by?.map(poem => (
+                {poem_by.length >= 1 ? poem_by?.map(poem => (
                     <div key={poem.id}>
                         {poem?.title}
                         {poem?.title &&
@@ -143,7 +144,8 @@ function UserHome() {
                             </>)
                         }
                     </div>
-                ))}
+                )) :
+                "Share a Poem!"}
             </div>
         </div>
     )
