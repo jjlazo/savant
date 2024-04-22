@@ -1,12 +1,12 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import current_user, login_required
-from app.models import User
+from app.forms.signup_form import SignUpForm
+from app.models import User, db
 from app.models.authors import Author
 from app.models.poems import Poem
 from app.models.annotations import Annotation
 
 user_routes = Blueprint('users', __name__)
-
 
 @user_routes.route('/')
 @login_required
@@ -35,6 +35,37 @@ def user_bookmarks(id):
         return {"Poems": [poem.to_dict() for poem in user.bookmarks]}
     return { "message": "User unauthorized"}, 401
 
+# update user account
+# @user_routes.route('<int:id>/account-management')
+# def update_user(id):
+#     user = User.query.get(id)
+#     form = SignUpForm()
+#     # form['csrf_token'].data = request.cookies['csrf_token']
+
+#     if user.id == current_user.id:
+#         if form.validate_on_submit():
+#             user.username = form.username.data
+#             user.email = form.email.data
+#             user.password = form.password.data
+#             db.session.commit()
+
+#             return user.to_dict()
+#         return form.errors, 400
+#     return { "message": "User unauthorized"}, 401
+
+# delete user account
+@user_routes.route('<int:id>/delete-user')
+def delete_account(id):
+    user = User.query.get(id)
+
+    if user.id == current_user.id:
+        db.session.delete(user)
+        db.session.commit()
+
+        return {"message": "Success"}, 200
+    return { "message": "User unauthorized"}, 401
+
+# get poems posted by user
 @user_routes.route('/<int:id>/user-poems')
 def user_poems(id):
     user = User.query.get(id)
@@ -43,6 +74,7 @@ def user_poems(id):
         return {"Poems": [poem.to_dict() for poem in poems]}
     return {"message": "User unauthorized"}, 401
 
+# get authors posted by user
 @user_routes.route('/<int:id>/user-authors')
 def user_authors(id):
     user = User.query.get(id)
@@ -51,6 +83,7 @@ def user_authors(id):
         return {"Authors": [author.to_dict() for author in authors]}
     return {"message": "User unauthorized"}, 401
 
+# get annotations posted by user
 @user_routes.route('<int:id>/user-annotations')
 def user_annotations(id):
     user = User.query.get(id)
