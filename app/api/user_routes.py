@@ -5,6 +5,8 @@ from app.models import User, db
 from app.models.authors import Author
 from app.models.poems import Poem
 from app.models.annotations import Annotation
+from aws import (
+    upload_file_to_s3, get_unique_filename)
 
 user_routes = Blueprint('users', __name__)
 
@@ -36,25 +38,34 @@ def user_bookmarks(id):
     return { "message": "User unauthorized"}, 401
 
 # update user account
-# @user_routes.route('<int:id>/account-management')
-# def update_user(id):
-#     user = User.query.get(id)
-#     form = SignUpForm()
-#     # form['csrf_token'].data = request.cookies['csrf_token']
+@user_routes.route('<int:id>/account-management', methods=['PUT'])
+def update_user(id):
+    user = User.query.get(id)
+    form = SignUpForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
-#     if user.id == current_user.id:
-#         if form.validate_on_submit():
-#             user.username = form.username.data
-#             user.email = form.email.data
-#             user.password = form.password.data
-#             db.session.commit()
+    if user.id == current_user.id:
+        if form.validate_on_submit():
+            user.username = form.username.data
+            user.email = form.email.data
+            user.password = form.password.data
 
-#             return user.to_dict()
-#         return form.errors, 400
-#     return { "message": "User unauthorized"}, 401
+            profile_image = form.data["profile picture"]
+            profile_image.filename = get_unique_filename(profile_image.filename)
+            upload = upload_file_to_s3(profile_image)
+            if "url" not in upload:
+                return {"message": "Image upload failed"}
+            url = upload["url"]
+            user.profile_image = url
+
+            db.session.commit()
+
+            return user.to_dict()
+        return form.errors, 400
+    return { "message": "User unauthorized"}, 401
 
 # delete user account
-@user_routes.route('<int:id>/delete-user')
+@user_routes.route('<int:id>/delete-user', methods=['DELETE'])
 def delete_account(id):
     user = User.query.get(id)
 
