@@ -45,7 +45,7 @@
 #all-authors-container{
     display: flex;
     flex-direction: column;
-    background-color: cadetblue;
+    /* background-color: cadetblue; */
 }
 
 #authors-header{
