@@ -16,3 +16,8 @@
     margin: 10px;
 
 }
+
+#profile-input-form{
+    display: flex;
+    flex-direction: column;
+}

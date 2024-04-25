@@ -16,10 +16,11 @@ function UserHome() {
     const { closeModal } = useModal();
     const { userId } = useParams()
     const ulRef = useRef();
-    const [showMenu, setShowMenu] = useState(false);
-    const sessionUser = useSelector((state) => state.session.user)
     let poems = useSelector(state => state.poems)
     let authors = useSelector(authorActions.selectAllAuthors)
+    const sessionUser = useSelector((state) => state.session.user)
+    const [showMenu, setShowMenu] = useState(false);
+    const [profilePicture, setProfilePicture] = useState(sessionUser?.profile_image)
     const [userEmail, setUserEmail] = useState(sessionUser?.email)
     const [userUsername, setUsername] = useState(sessionUser?.username)
     const [password, setPassword] = useState("")
@@ -93,24 +94,37 @@ function UserHome() {
 
     return (
         <div className="home-container">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} id="profile-input-form">
                 <h3 id="home-page-label">Hello, {sessionUser?.username}!</h3>
-                <img src={sessionUser?.profile_image} className="profile-picture" />
-                <input
-                    type="text"
-                    placeholder={userEmail}
-                    value={userEmail}
-                    onChange={(e) => setUserEmail(e.target.value)} />
-                <input
-                    type="text"
-                    placeholder={userUsername}
-                    value={userUsername}
-                    onChange={(e) => setUsername(e.target.value)} />
-                <input
-                    type="password"
-                    placeholder="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)} />
+                <img src={sessionUser?.profile_image} className="profile-picture" width="25px"/>
+                <label className="profile-inputs"> Profile Picture
+                    <input
+                        type="file"
+                        accept="image/*"
+                        id="profile-picture-input"
+                        onChange={(e) => setProfilePicture(e.target.files[0])} />
+                </label>
+                <label className="profile-inputs"> Email
+                    <input
+                        type="text"
+                        placeholder={userEmail}
+                        value={userEmail}
+                        onChange={(e) => setUserEmail(e.target.value)} />
+                </label>
+                <label className="profile-input"> Username
+                    <input
+                        type="text"
+                        placeholder={userUsername}
+                        value={userUsername}
+                        onChange={(e) => setUsername(e.target.value)} />
+                </label>
+                <label className="profile-input"> Password
+                    <input
+                        type="password"
+                        placeholder="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)} />
+                </label>
                 <button type="submit">Save Changes</button>
             </form>
             <div className="creations-container">
