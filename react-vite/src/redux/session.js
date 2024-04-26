@@ -1,5 +1,6 @@
 const SET_USER = 'session/setUser';
 export const REMOVE_USER = 'session/removeUser';
+const UPDATE_USER = 'session/updateUser'
 
 const setUser = (user) => ({
   type: SET_USER,
@@ -10,16 +11,37 @@ const removeUser = () => ({
   type: REMOVE_USER
 });
 
-export const thunkAuthenticate = () => async (dispatch) => {
-	const response = await fetch("/api/auth/");
-	if (response.ok) {
-		const data = await response.json();
-		if (data.errors) {
-			return;
-		}
+const updateUser = (user) => ({
+  type: UPDATE_USER,
+  user
+});
 
-		dispatch(setUser(data));
-	}
+export const thunkUpdateUser = (user, userId) => async (dispatch) => {
+  const response = await fetch(`/api/users/${userId}/account-management`, {
+    method: "PUT",
+    body: user
+  })
+
+  if (response.ok) {
+    const user = await response.json()
+    dispatch(updateUser(user))
+    return user;
+  } else {
+    const errors = await response.json()
+    return { "errors": errors }
+  }
+}
+
+export const thunkAuthenticate = () => async (dispatch) => {
+  const response = await fetch("/api/auth/");
+  if (response.ok) {
+    const data = await response.json();
+    if (data.errors) {
+      return;
+    }
+
+    dispatch(setUser(data));
+  }
 };
 
 export const thunkLogin = (credentials) => async dispatch => {
@@ -29,7 +51,7 @@ export const thunkLogin = (credentials) => async dispatch => {
     body: JSON.stringify(credentials)
   });
 
-  if(response.ok) {
+  if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data));
   } else if (response.status < 500) {
@@ -47,7 +69,7 @@ export const thunkSignup = (user) => async (dispatch) => {
     body: JSON.stringify(user)
   });
 
-  if(response.ok) {
+  if (response.ok) {
     const data = await response.json();
     dispatch(setUser(data));
   } else if (response.status < 500) {

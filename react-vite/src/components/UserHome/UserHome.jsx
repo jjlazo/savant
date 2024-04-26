@@ -5,6 +5,7 @@ import { UpdateAuthorFormModal, UpdatePoemFormModal } from "../ModalForms";
 import { useDispatch, useSelector } from 'react-redux';
 import * as poemActions from '../../redux/poems'
 import * as authorActions from '../../redux/authors'
+import * as sessionActions from '../../redux/session'
 import OpenModalButton from "../OpenModalButton";
 import { useModal } from "../../context/Modal";
 import './UserHome.css'
@@ -16,15 +17,17 @@ function UserHome() {
     const { closeModal } = useModal();
     const { userId } = useParams()
     const ulRef = useRef();
-    let poems = useSelector(state => state.poems)
-    let authors = useSelector(authorActions.selectAllAuthors)
     const sessionUser = useSelector((state) => state.session.user)
     const [showMenu, setShowMenu] = useState(false);
-    const [profilePicture, setProfilePicture] = useState(sessionUser?.profile_image)
+    const [profilePicture, setProfilePicture] = useState(null)
+    const [imageLoading, setImageLoading] = useState(false);
     const [userEmail, setUserEmail] = useState(sessionUser?.email)
     const [userUsername, setUsername] = useState(sessionUser?.username)
     const [password, setPassword] = useState("")
+    const [errors, setErrors] = useState({})
 
+    let poems = useSelector(state => state.poems)
+    let authors = useSelector(authorActions.selectAllAuthors)
     const authorArr = Object.values(authors)
     const poemArr = Object.values(poems)
 
@@ -90,6 +93,25 @@ function UserHome() {
 
     const handleSubmit = async (e) => {
         // insert thunk dispatch here ...
+        e.preventDefault();
+
+        setErrors({});
+
+        const formData = new FormData();
+        formData.append("username", userUsername);
+        formData.append("email", userEmail);
+        formData.append("profile_picture", profilePicture);
+        formData.append("password", password);
+
+        const response = await dispatch(sessionActions.thunkUpdateUser(formData, userId));
+        setImageLoading(true);
+
+        if (response.errors) {
+          setErrors(response.errors);
+          setImageLoading(false);
+        } else if (response.ok) {
+            setImageLoading(false)
+        }
     }
 
     return (
